@@ -1,0 +1,31 @@
+package validacion;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class Conexion {
+private static String driver = "org.postgresql.Driver";
+	
+	private static String connectString = "jdbc:postgresql://localhost:5432/test"; //ServidorSEI
+	private static String user = "postgres";
+	private static String password = "1234";
+	
+	public static Connection getConexion(){
+		Connection con = null;
+		try{
+			Class.forName(driver);
+			con = DriverManager.getConnection(connectString, user , password);
+			System.out.println("Conexion correcta");
+		}catch ( Exception e ){
+			System.out.println("ERROR "+ e.getMessage());
+			e.printStackTrace();
+			}
+		return con;
+	}
+	
+	public static void main(String[] args) {
+		Connection con = Conexion.getConexion();
+		System.out.println("");
+		
+	}
+}
