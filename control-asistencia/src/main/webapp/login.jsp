@@ -22,14 +22,15 @@
   </section>
   <section class="main">
     <section class="login-container">
-      <h1 class="tittle">Bienvenido</h1>
+      <h1 class="tittle">Control de asistencia</h1>
+      <p>Subsecretaria de tesoreria</p>
       <form action="#" class="login-form">
         <div>
           <label>Usuario:</label>
-          <input type="text" placeholder="becario.fernando" class="form-control">
+          <input type="text" placeholder="becario.fernando" class="form-control" required>
           <br>
           <label>Contraseña:</label>
-          <input type="password" placeholder="" class="form-control"><br>
+          <input type="password" placeholder="" class="form-control" required><br>
           <input type="submit" value="Enviar" class="enviar">
 
         </div>

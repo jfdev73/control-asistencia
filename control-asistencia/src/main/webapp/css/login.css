@@ -52,7 +52,14 @@ section {
   font-weight: bold;
   text-align: center;
   letter-spacing: 1px;
-  margin-bottom: 38px;
+  margin-bottom: 7px;
+}
+
+p{
+	margin:10px;
+	margin-bottom:25px;
+	color:#339CFF;
+	font-weight: bold;
 }
 
 .form-control {
