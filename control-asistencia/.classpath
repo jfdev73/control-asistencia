@@ -13,7 +13,11 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/becario.fernando/Downloads/postgresql-42.3.3.jar"/>
-	<classpathentry kind="lib" path="Y:/ConexionLdap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/becario.fernando/Downloads/postgresql-42.3.3.jar" sourcepath="C:/Program Files/Java/jdk1.8.0_311/src.zip">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/C:/Program%20Files/Java/jdk1.8.0_311/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="Y:/ConexionLdap.jar" sourcepath="C:/Program Files/Java/jdk1.8.0_311/src.zip"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
