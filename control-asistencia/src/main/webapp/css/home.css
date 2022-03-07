@@ -1,0 +1,434 @@
+@charset "ISO-8859-1";
+body {
+  background-color: #f8eac8;
+  font-family: "Poppins", sans-serif;
+}
+
+/***Estilos para nav**/
+.container__home {
+  width: 4%;
+}
+.menu {
+  background-color: #1a202c;
+  color: #fff;
+  height: 70px;
+}
+
+.img__home {
+  width: 100%;
+}
+
+.menu__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  max-width: 1200px;
+  height: 100%;
+  margin: auto;
+}
+
+.menu__links {
+  height: 100%;
+  transition: transform 0.5s;
+  display: flex;
+  /*transform: translateX(100%);*/
+}
+
+.menu__item {
+  list-style: none;
+  position: relative;
+  height: 100%;
+  --clip: polygon(0 0, 100% 0, 100% 0, 0 0);
+  --transform: rotate(0);
+}
+.menu__item:hover {
+  --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+  --transform: rotate(-180deg);
+}
+.menu__link {
+  color: #fff;
+  text-decoration: none;
+  padding: 0 30px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.menu__nombre {
+  color: #fff;
+  padding: 0 30px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+}
+
+.menu__link:hover {
+  background-color: #7c92bd;
+}
+.menu__arrow {
+  transform: var(--transform);
+  transition: transform 0.3s;
+  display: block;
+  margin-left: 3px;
+}
+
+.menu__nesting {
+  list-style: none;
+  transition: clip-path 0.3s;
+  clip-path: var(--clip);
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: max-content;
+  transform: translateY(100%);
+  background-color: #000;
+  z-index: 1;
+}
+
+.menu__link--inside {
+  padding: 10px;
+  align-items: center;
+}
+
+.menu__link--inside:hover {
+  background-color: #798499;
+}
+
+.menu__hamburguer {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  cursor: pointer;
+  display: none;
+}
+
+.menu__img {
+  display: block;
+  width: 36px;
+}
+.welcome__picture {
+  height: 100%;
+}
+
+@media (max-width: 800px) {
+  .menu__item {
+    list-style: none;
+    position: relative;
+    height: 100%;
+  }
+  .menu__item:hover {
+  }
+  .menu__hamburguer {
+    display: flex;
+  }
+  .menu__links {
+    position: fixed;
+    max-width: 400px;
+    width: 100%;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    overflow-y: auto;
+    display: grid;
+    grid-auto-rows: max-content;
+    transform: translateX(100%);
+    z-index: 1;
+  }
+
+  .menu__link,
+  .menu__nombre {
+    padding: 25px 0;
+    padding-left: 30px;
+    height: auto;
+  }
+
+  .menu__arrow {
+    transform: rotate(0);
+    margin-left: auto;
+    margin-right: 20px;
+  }
+
+  .menu__nesting {
+    display: grid;
+    position: unset;
+    width: 100%;
+    transform: translateY(0);
+    transition: height 0.3;
+  }
+
+  .menu__item {
+  }
+
+  /* Efecto para aparacer y desaparecer enlaces */
+  .menu__nesting {
+    height: 0;
+    /*overflow: hidden*/
+  }
+  .hola {
+    --clip: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    --transform: rotate(-180deg);
+  }
+  .view {
+    width: inherit;
+    height: 204px;
+  }
+
+  .menu__90 {
+    transform: rotate(-180deg);
+  }
+  .menu__link--inside {
+    width: 90%;
+    margin-left: auto;
+    border-left: 1px solid #798499;
+  }
+  .menu__links--show {
+    transform: unset;
+    width: 100%;
+  }
+  .container__home {
+    width: 7%;
+  }
+  /*.menu__hamburguer {
+    display: flex;
+  }
+
+  .menu__item {
+    --clip: 0;
+    overflow: hidden;
+  }
+
+  .menu__item--active {
+  }
+
+  .menu__item--show {
+    background-color: var(--background);
+  }
+  .menu__links {
+    position: fixed;
+    max-width: 400px;
+    width: 100%;
+    top: 70px;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    overflow-y: auto;
+    display: grid;
+    grid-auto-rows: max-content;
+    transform: translateX(100%);
+  }
+  .menu__nombre {
+    display: none;
+  }
+
+  .menu__links--show {
+    transform: unset;
+    width: 100%;
+    background-color: red;
+  }
+
+  .menu__link {
+    padding: 25px 0;
+    padding-left: 30px;
+    height: auto;
+  }
+
+  .menu__arrow {
+    margin-left: auto;
+    margin-right: 80px;
+  }
+
+  .menu__nesting {
+    display: grid;
+    position: unset;
+    width: 100%;
+    transform: translateY(0);
+    height: 0;
+    transition: height 0.3;
+  }
+
+  .menu__link--inside {
+    width: 90%;
+    margin-left: auto;
+    border-left: 1px solid #798499;
+  }
+  /*.menu__item:hover {
+    --transform: rotate(-90deg);
+  }*/
+}
+
+/********  Estilos de vista-home  ********/
+.main {
+  z-index: 0;
+}
+.container {
+  max-width: 1200px;
+  overflow: hidden;
+  margin: 0 auto;
+  padding: 80px 0;
+  /* border: 3px solid red; */
+}
+
+.nombre {
+  font-size: 1.3rem;
+  margin: 0;
+  text-align: center;
+  margin-bottom: 10px;
+}
+.welcome__picture {
+  /*width: 20px;*/
+}
+
+.main__contanier {
+  display: flex;
+  flex-wrap: nowrap;
+  /*justify-content: space-evenly;*/
+  justify-content: flex-start;
+  align-items: center;
+  height: 100vh;
+  position: relative;
+  text-align: center;
+  padding: 0;
+}
+.welcome__img {
+  text-align: center;
+  height: 114px;
+  /* margin-top: 0px; */
+}
+
+.vista__img {
+  width: 100%;
+  text-align: center;
+  margin: 0;
+}
+
+.main__fechas {
+  background-color: #ffffff;
+  text-align: center;
+  margin-left: 40px;
+  border-radius: 10px;
+  width: inherit;
+}
+.title__vacaciones {
+  margin: 0;
+  background-color: #76ff7b;
+  border-radius: 4px;
+}
+.fechas {
+  text-align: left;
+  padding: 30px;
+}
+.vista__svg {
+  width: 100%;
+}
+
+.main__texts {
+  width: 65%;
+  max-width: 90%;
+  text-align: left;
+  position: static;
+  position: relative;
+  top: -50px;
+  max-height: 90%;
+}
+
+.main__img {
+  position: relative;
+  top: -80px;
+}
+
+.welcome__desk {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.about__paragraph {
+  line-height: 1.5;
+  text-align: center;
+  margin-top: 3px;
+}
+
+.view__main {
+  background-color: #d2abd3;
+  padding: 20px;
+  border-radius: 10px;
+  margin-left: 40px;
+  width: inherit;
+  padding-top: 0;
+  box-shadow: 9px 13px 26px -5px rgba(58, 57, 57, 0.37);
+}
+.welcome__head {
+  display: none;
+}
+
+.fechas li {
+  margin-bottom: 15px;
+}
+
+@media (max-width: 800px) {
+  .main__texts {
+    width: 80%;
+    top: -11px;
+  }
+  .welcome__img {
+    height: 110px;
+    text-align: center;
+  }
+  .nombre {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .main__img {
+    display: none;
+  }
+  .welcome__img {
+    height: 100px;
+    text-align: center;
+  }
+
+  .main__contanier {
+    justify-content: space-around;
+  }
+  .main__texts {
+    position: absolute;
+    top: 50px;
+  }
+  .welcome__head {
+    text-align: center;
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .welcome__desk {
+    display: none;
+  }
+}
+
+@media (max-width: 550px) {
+  .welcome__img {
+    height: rem;
+    text-align: center;
+  }
+}
+@media (max-width: 400px) {
+  .welcome__img {
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    height: 96px;
+  }
+
+  .welcome__picture {
+    width: 100%;
+  }
+  .main__contanier {
+    justify-content: space-around;
+  }
+}
+
+/**Vista 2**/
