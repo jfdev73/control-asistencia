@@ -12,24 +12,26 @@
 </head>
 
 <body>
-  <nav class="menu">
+  <header><nav class="menu">
     <section class="menu__container">
-      <figure><a href="#"><img src="assets/img/home.svg" alt="" class="img__home"></a></figure>
+      <figure class="container__home"><a href="home.html"><img src="assets/img/home.svg" alt="" class="img__home"></a>
+      </figure>
       <ul class="menu__links">
-        <li class="menu__item"><a href="part2.html" class="menu__link">Incidencias</a>
+        <li class="menu__item"><a href="incidencias.html" class="menu__link">Incidencias</a>
 
         </li>
         <li class="menu__item menu__item--show">
-          <a href="#" class="menu__link">Vacaciones <img src="assets/arrow.svg" alt="" class="menu__arrow"></a>
+          <a href="#" class="menu__link prueba">Vacaciones <img src="assets/img/arrow.svg" alt="" class="menu__arrow"></a>
           <ul class="menu__nesting">
             <li class="menu__inside">
-              <a href="#" class="menu__link menu__link--inside center">Guardias</a>
+              <a href="guardias.html" class="menu__link menu__link--inside center">Guardias</a>
             </li>
             <li class="menu__inside">
-              <a href="#" class="menu__link menu__link--inside">Periodo Ordinario</a>
+              <a href="periodo_ordinario.html
+              " class="menu__link menu__link--inside">Periodo Ordinario</a>
             </li>
             <li class="menu__inside">
-              <a href="#" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
+              <a href="fperiodo_ordinario.html" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
             </li>
           </ul>
         </li>
@@ -37,14 +39,15 @@
 
       </ul>
       <div class="menu__hamburguer">
-        <img src="assets/menu.svg" alt="" class="menu__img">
+        <img src="assets/img/menu.svg" alt="" class="menu__img">
       </div>
 
 
     </section>
 
-  </nav>
-  <script src="js/app.js"></script>
+  </nav></header>
+  
+<script src="js/app.js"></script>
 </body>
 
 </html>
