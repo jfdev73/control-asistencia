@@ -49,6 +49,8 @@ public class login extends HttpServlet {
 				String nickuser = request.getParameter("nickuser");
 				String passw0rd = request.getParameter("password");
 				
+				System.out.println("usuario:"+nickuser);
+				
 				String tEnc=DigestUtils.md5Hex(passw0rd); 
 				//System.out.println("Texto Encriptado con MD5 : "+textoEnc);
 						
@@ -124,7 +126,7 @@ public class login extends HttpServlet {
 								session.setAttribute( "theNickName", us.getNickuser() );
 										
 								
-								String ip = null; 	     
+								/*String ip = null; 	     
 							    ip = request.getRemoteAddr(); // IP del cliente
 							    
 								Auditoria nuevo = new Auditoria();
@@ -135,7 +137,7 @@ public class login extends HttpServlet {
 								nuevo.setIP(ip);
 								nuevo.setID(0);
 								nuevo.start();
-
+*/
 								
 								response.sendRedirect("consultacontactos.jsp"); System.out.println("redirigiendo a pantalla principal"); 
 							}//Si acceso=1
@@ -165,7 +167,7 @@ public class login extends HttpServlet {
 				e.printStackTrace(impresion);
 				fichero.close(); 
 				System.out.println(e.getMessage());
-				}
+				} 
 	}
 
 }

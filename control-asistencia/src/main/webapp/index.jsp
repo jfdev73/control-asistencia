@@ -24,13 +24,13 @@
     <section class="login-container">
       <h1 class="tittle">Control de asistencia</h1>
       <p>Subsecretaria de tesoreria</p>
-      <form action="#" class="login-form">
+      <form action="login" class="login-form" method="post">
         <div>
           <label>Usuario:</label>
-          <input type="text" placeholder="becario.fernando" class="form-control" required>
+          <input type="text" placeholder="becario.fernando" class="form-control" name="nickuser" required>
           <br>
           <label>Contraseña:</label>
-          <input type="password" placeholder="" class="form-control" required><br>
+          <input type="password" placeholder="" class="form-control" name="password" required><br>
           <input type="submit" value="Enviar" class="enviar">
 
         </div>

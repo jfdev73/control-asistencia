@@ -6,7 +6,7 @@ import java.sql.DriverManager;
 public class Conexion {
 private static String driver = "org.postgresql.Driver";
 	
-	private static String connectString = "jdbc:postgresql://localhost:5432/test"; //ServidorSEI
+	private static String connectString = "jdbc:postgresql://localhost:5432/Test"; //ServidorSEI
 	private static String user = "postgres";
 	private static String password = "1234";
 	
@@ -25,7 +25,6 @@ private static String driver = "org.postgresql.Driver";
 	
 	public static void main(String[] args) {
 		Connection con = Conexion.getConexion();
-		System.out.println("");
 		
 	}
 }
