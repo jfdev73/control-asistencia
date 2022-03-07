@@ -14,24 +14,24 @@
 <body>
   <header><nav class="menu">
     <section class="menu__container">
-      <figure class="container__home"><a href="home.html"><img src="assets/img/home.svg" alt="" class="img__home"></a>
+      <figure class="container__home"><a href="Home.jsp"><img src="assets/img/home.svg" alt="" class="img__home"></a>
       </figure>
       <ul class="menu__links">
-        <li class="menu__item"><a href="incidencias.html" class="menu__link">Incidencias</a>
+        <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Incidencias</a>
 
         </li>
         <li class="menu__item menu__item--show">
           <a href="#" class="menu__link prueba">Vacaciones <img src="assets/img/arrow.svg" alt="" class="menu__arrow"></a>
           <ul class="menu__nesting">
             <li class="menu__inside">
-              <a href="guardias.html" class="menu__link menu__link--inside center">Guardias</a>
+              <a href="Guardias.jsp" class="menu__link menu__link--inside center">Guardias</a>
             </li>
             <li class="menu__inside">
-              <a href="periodo_ordinario.html
+              <a href="periodo_ordinario.jsp
               " class="menu__link menu__link--inside">Periodo Ordinario</a>
             </li>
             <li class="menu__inside">
-              <a href="fperiodo_ordinario.html" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
+              <a href="fperiodo_ordinario.jsp" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
             </li>
           </ul>
         </li>
