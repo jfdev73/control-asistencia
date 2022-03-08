@@ -35,6 +35,9 @@
             </li>
           </ul>
         </li>
+         <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Estatus</a>
+
+        </li>
         <span class="menu__item menu__nombre">Juan Fernando Miranda Monroy</span>
 
       </ul>

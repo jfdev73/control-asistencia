@@ -50,6 +50,8 @@ public class login extends HttpServlet {
 				///////////////////////////////////////////////////Datos de Usuario
 				String nickuser = request.getParameter("nickuser");
 				String passw0rd = request.getParameter("password");
+				String prueba = DigestUtils.md5Hex("000");
+				System.out.println("ejemplo: "+ prueba);
 				
 				String tEnc=DigestUtils.md5Hex(passw0rd); 
 				System.out.println("Texto Encriptado con M5 : "+tEnc);
@@ -61,9 +63,7 @@ public class login extends HttpServlet {
 				Integer Acceso=0;
 				
 				System.out.println("1"+"esto es  "+nickuser+" "+passw0rd);
-				if(nickuser!="" && passw0rd!=""){
-					System.out.println("antes");
-				}
+				
 				try{
 					
 					if(nickuser!="" && passw0rd!=""){
@@ -72,36 +72,72 @@ public class login extends HttpServlet {
 						
 						Usuario us= Usuario.getUsuario(nickuser);
 						
+						System.out.println("entro 2");
+						
 						if(us!=null) {//existe usuario
+							
+							System.out.println("us:"+us+ "us.getActive_directory() "+us.getActive_directory());
+							
 							if(us.getActive_directory()==true) {
 								
-										System.out.println("Iniciando Autenticacion");
-										boolean cl = ConexionLdap.authenticate(nickuser, passw0rd);		
-										System.out.println("hhhh"+cl);				
-										if(cl==true) {  
-											us= Usuario.getVerificarPerfil(us,17);//DirectorioWeb
-											if(us.getPerfil()==25 || us.getPerfil()==26 || us.getPerfil()==35){//Acceso al sistema
-												Acceso=1;
-											}else{
-												error=4;
-												System.out.println("No tiene acceso");
-											}//no tiene acceso al sistema
-											
-										}//Las credenciales son correctas
-										else {
-											error=2;
-											System.out.println("Credenciales Invalidas");}//Credenciales invalidas										
+								System.out.println("Iniciando Autenticacion");
+								boolean cl = ConexionLdap.authenticate(nickuser, passw0rd);		
+								System.out.println(cl);				
+								if(cl==true) {  
+									us= Usuario.getVerificarPerfil(us,36);//DirectorioWeb
+									if(us.getPerfil()==53 || us.getPerfil()==54) {//Acceso al sistema
+										Acceso=1;
+									}else{
+										error=4;
+										System.out.println("No tiene acceso");
+									}//no tiene acceso al sistema
+									
+								}//Las credenciales son correctas
+								else {
+									error=2;
+									System.out.println("Credenciales Invalidas");}//Credenciales invalidas										
+					}else {
+									
+									System.out.println("Autenticacion sin ldap");
+									boolean cl = Usuario.Authenticate(us, tEnc);
+									
+									if(cl==true) {
+										    System.out.println("Credenciales validas");
+										    
+											if(us.getCuenta_expirada()==true) {
+
+												HttpSession session = request.getSession(true);
+												session.setMaxInactiveInterval(60*60); 
+												session.setAttribute("usuarioconexion", us);
+												System.out.println("Credenciales expiradas");
+												response.sendRedirect("updatepassword.jsp");
+												
+											}else {
+												us= Usuario.getVerificarPerfil(us,36);//DirectorioWeb
+												if(us.getPerfil()==53 || us.getPerfil()==54) {//Acceso al sistema
+													System.out.println("Acceso al sistema");
+													Acceso=1;
+												}else{
+													error=4;
+													System.out.println("No tiene acceso");
+												}//no tiene acceso al sistema
+											}///Tiene cuenta de acceso, por lo cual verificamos que tenga el acceso al sistema							
+									}else {//Credenciales invalidas
+										error=2;
+										System.out.println("Credenciales Invalidas");	
+									}										
 							}
 							
 							if(Acceso==1)
 							{
 								System.out.println("Atributos de sesion");
 								HttpSession session = request.getSession(true);
+								System.out.println("Valor de sesion: " + session);
 								session.setMaxInactiveInterval(60*60);                                 ////Sesion de 60 minutos 
 								session.setAttribute( "theNickName", us.getNickuser() );
 										
 								
-								response.sendRedirect("consultacontactos.jsp"); System.out.println("redirigiendo a pantalla principal"); 
+								response.sendRedirect("Home.jsp"); System.out.println("redirigiendo a pantalla principal"); 
 							}//Si acceso=1
 							
 						}else{error=5; System.out.println("No se encuentra al usuario");}//Si no existe usuario

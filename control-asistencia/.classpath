@@ -14,7 +14,5 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="C:/Users/becario.fernando/Desktop/librerias/apache-commons-codec-1.4.jar"/>
-	<classpathentry kind="lib" path="C:/Users/becario.fernando/Desktop/librerias/ConexionLdap.jar"/>
-	<classpathentry kind="lib" path="C:/Users/becario.fernando/Desktop/librerias/postgresql-42.3.3.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
