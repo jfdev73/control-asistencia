@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import conexion.ConexionLdap;
 import conexion.Usuario;
 
@@ -85,7 +87,7 @@ public class login extends HttpServlet {
 										else {
 											error=2;
 											System.out.println("Credenciales Invalidas");}//Credenciales invalidas										
-							}else {
+							}/*else {
 								
 								System.out.println("Autenticacion sin ldap");
 								boolean cl = Usuario.Authenticate(us, tEnc);
@@ -117,7 +119,7 @@ public class login extends HttpServlet {
 								}
 								
 							}// el acceso no es por active directory
-						
+						*/
 							if(Acceso==1)
 							{
 								System.out.println("Atributos de sesion");

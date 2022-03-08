@@ -18,6 +18,7 @@
 			<attribute name="javadoc_location" value="file:/C:/Program%20Files/Java/jdk1.8.0_311/"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="Y:/ConexionLdap.jar" sourcepath="C:/Program Files/Java/jdk1.8.0_311/src.zip"/>
+	<classpathentry kind="lib" path="//10.33.178.249/Usuarios/becario.fernando/proyecto/ConexionLdap.jar"/>
+	<classpathentry kind="lib" path="C:/Users/becario.fernando/Downloads/apache-commons-codec-1.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
