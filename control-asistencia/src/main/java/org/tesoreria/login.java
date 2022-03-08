@@ -51,20 +51,24 @@ public class login extends HttpServlet {
 				String nickuser = request.getParameter("nickuser");
 				String passw0rd = request.getParameter("password");
 				
-				System.out.println("usuario:"+nickuser);
-				
 				String tEnc=DigestUtils.md5Hex(passw0rd); 
-				//System.out.println("Texto Encriptado con MD5 : "+textoEnc);
+				System.out.println("Texto Encriptado con M5 : "+tEnc);
+				
 						
 				////////////////////////////////////////////////Parametros de Respuesta
 				String respuesta = "";
 				Integer error=0;
 				Integer Acceso=0;
 				
-				System.out.println("1"+nickuser+" "+passw0rd);
-				
+				System.out.println("1"+"esto es  "+nickuser+" "+passw0rd);
+				if(nickuser!="" && passw0rd!=""){
+					System.out.println("antes");
+				}
 				try{
+					
 					if(nickuser!="" && passw0rd!=""){
+						
+						System.out.println("entro");
 						
 						Usuario us= Usuario.getUsuario(nickuser);
 						
@@ -73,7 +77,7 @@ public class login extends HttpServlet {
 								
 										System.out.println("Iniciando Autenticacion");
 										boolean cl = ConexionLdap.authenticate(nickuser, passw0rd);		
-										System.out.println(cl);				
+										System.out.println("hhhh"+cl);				
 										if(cl==true) {  
 											us= Usuario.getVerificarPerfil(us,17);//DirectorioWeb
 											if(us.getPerfil()==25 || us.getPerfil()==26 || us.getPerfil()==35){//Acceso al sistema
@@ -87,39 +91,8 @@ public class login extends HttpServlet {
 										else {
 											error=2;
 											System.out.println("Credenciales Invalidas");}//Credenciales invalidas										
-							}/*else {
-								
-								System.out.println("Autenticacion sin ldap");
-								boolean cl = Usuario.Authenticate(us, tEnc);
-								
-								if(cl==true) {
-									    System.out.println("Credenciales validas");
-									    
-										if(us.getCuenta_expirada()==true) {
-
-											HttpSession session = request.getSession(true);
-											session.setMaxInactiveInterval(60*60); 
-											session.setAttribute("usuarioconexion", us);
-											System.out.println("Credenciales expiradas");
-											response.sendRedirect("updatepassword.jsp");
-											
-										}else {
-											us = Usuario.getVerificarPerfil(us, 17);//DirectorioWeb
-											if(us.getPerfil()==25 || us.getPerfil()==26 || us.getPerfil()==35){//Acceso al sistema consulta y capturista o Administrador
-												System.out.println("Acceso al sistema");
-												Acceso=1;
-											}else{
-												error=4;
-												System.out.println("No tiene acceso");
-											}//no tiene acceso al sistema
-										}///Tiene cuenta de acceso, por lo cual verificamos que tenga el acceso al sistema							
-								}else {//Credenciales invalidas
-									error=2;
-									System.out.println("Credenciales Invalidas");	
-								}
-								
-							}// el acceso no es por active directory
-						*/
+							}
+							
 							if(Acceso==1)
 							{
 								System.out.println("Atributos de sesion");
@@ -127,19 +100,6 @@ public class login extends HttpServlet {
 								session.setMaxInactiveInterval(60*60);                                 ////Sesion de 60 minutos 
 								session.setAttribute( "theNickName", us.getNickuser() );
 										
-								
-								/*String ip = null; 	     
-							    ip = request.getRemoteAddr(); // IP del cliente
-							    
-								Auditoria nuevo = new Auditoria();
-								nuevo.setConcepto(4);
-								nuevo.setTabla(0);
-								nuevo.setModify(us.getNickuser());
-								//nuevo.setIP(Inet4Address.getLocalHost().getHostAddress());
-								nuevo.setIP(ip);
-								nuevo.setID(0);
-								nuevo.start();
-*/
 								
 								response.sendRedirect("consultacontactos.jsp"); System.out.println("redirigiendo a pantalla principal"); 
 							}//Si acceso=1
@@ -155,19 +115,20 @@ public class login extends HttpServlet {
 						else if(error==3) {session.setAttribute("danger","Verifica que los campos no se encuentren vacios");}
 						else if(error==4) {session.setAttribute("danger","Permiso Denegado! Comunicate con la Unidad de Informática.");}
 						else if(error==5) {session.setAttribute("danger","El usuario no existe!");}
-						response.sendRedirect("Login.jsp");
+						response.sendRedirect("index.jsp");
 					}
 						
 				}catch ( Exception e ){	
 				respuesta = e.getLocalizedMessage();
 				request.setAttribute("respuesta", respuesta);
 				RequestDispatcher requestDispatcher; 
-				requestDispatcher = request.getRequestDispatcher("Login.jsp");
+				requestDispatcher = request.getRequestDispatcher("index.jsp");
 				requestDispatcher.forward(request, response);
-				FileWriter fichero = new FileWriter("/opt/tomcat/apache-tomcat-9.0.31/webapps/DirectorioWeb/catalogos/Files/error.log");
+				/*FileWriter fichero = new FileWriter("/opt/tomcat/apache-tomcat-9.0.31/webapps/DirectorioWeb/catalogos/Files/error.log");
 				PrintWriter impresion = new PrintWriter(fichero);
 				e.printStackTrace(impresion);
 				fichero.close(); 
+				*/
 				System.out.println(e.getMessage());
 				} 
 	}
