@@ -39,6 +39,9 @@
 
         </li>
         <span class="menu__item menu__nombre">Juan Fernando Miranda Monroy</span>
+        <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Salir</a>
+
+        </li>
 
       </ul>
       <div class="menu__hamburguer">
