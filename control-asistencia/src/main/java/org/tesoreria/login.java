@@ -51,7 +51,7 @@ public class login extends HttpServlet {
 				String nickuser = request.getParameter("nickuser");
 				String passw0rd = request.getParameter("password");
 				String prueba = DigestUtils.md5Hex("000");
-				System.out.println("ejemplo: "+ prueba);
+				System.out.println("ejemplo de con: "+ prueba);
 				
 				String tEnc=DigestUtils.md5Hex(passw0rd); 
 				System.out.println("Texto Encriptado con M5 : "+tEnc);
@@ -99,6 +99,8 @@ public class login extends HttpServlet {
 					}else {
 									
 									System.out.println("Autenticacion sin ldap");
+									System.out.println("usuario: "+us);
+									System.out.println("passw: "+tEnc);
 									boolean cl = Usuario.Authenticate(us, tEnc);
 									
 									if(cl==true) {
