@@ -31,7 +31,8 @@ public class Close extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//request.getSession().removeAttribute("id");
+		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		String cerrar = request.getParameter("cerrar");
 		System.out.println("valor de integer:"+login.varClose);
 		
@@ -39,11 +40,9 @@ public class Close extends HttpServlet {
 		if(cerrar.equals("1")) {
 			System.out.println("valor de c:" + cerrar);
 			System.out.println("Son iguales");
-			HttpSession session = request.getSession(true);
-			login.varClose = 0;
-			session.setAttribute("p", login.varClose);
+			HttpSession session = request.getSession();
+			session.removeAttribute("theNickName");
 			session.invalidate();
-			System.out.println("valor despues"+login.varClose);
 			response.sendRedirect("index.jsp");
 		}
 	}

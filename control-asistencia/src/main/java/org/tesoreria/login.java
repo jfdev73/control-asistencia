@@ -162,6 +162,7 @@ public class login extends HttpServlet {
 						session.setMaxInactiveInterval(60 * 60); //// Sesion de 60 minutos
 						String nick = us.getNickuser();
 						System.out.println("nick:" + nick);
+					
 						
 						session.setAttribute("theNickName", us.getNickuser());
 						Object p = us.getPerfil();
