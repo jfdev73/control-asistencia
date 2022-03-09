@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -19,12 +21,12 @@
     <section class="main__contanier container">
 
       <section class="main__texts">
-        <h1 class="welcome__head">Bienvenido</h1>
+        <h1 class="welcome__head">Bienvenido </h1>
         <div class="view__main"><br>
           <figure class="welcome__img">
             <img src="assets/img/welcome.svg" alt="" class="welcome__picture">
           </figure>
-          <h3 class="nombre">Juan Fernando Miranda Monroy Miranda Monroy</h3>
+          <h3 class="nombre">${nombre}</h3>
           <p class="about__paragraph">Subsecretaria de tesoreria</p>
           <p class="about__paragraph">Unidad de Informática</p>
         </div>
