@@ -18,7 +18,7 @@
  String numP = "53";
  out.println("imprimiendo perfil:"+perfill);
  if(session.getAttribute("perfil").equals("53") && perfill != null) {
-	 out.println("Son iguales");
+	
   %> 
  <header><nav class="menu">
     <section class="menu__container">

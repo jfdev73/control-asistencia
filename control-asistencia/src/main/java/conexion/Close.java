@@ -1,6 +1,8 @@
 package conexion;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -43,7 +45,9 @@ public class Close extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.removeAttribute("theNickName");
 			session.invalidate();
-			response.sendRedirect("index.jsp");
+			//response.sendRedirect("index.jsp");
+			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 		}
 	}
 
