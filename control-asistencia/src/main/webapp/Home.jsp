@@ -12,6 +12,9 @@
   <link rel="stylesheet" href="css/format.css">
   <link rel="stylesheet" href="css/home.css">
   <title>Home</title>
+  <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
+  %>
 </head>
 
 <body>

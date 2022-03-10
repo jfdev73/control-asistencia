@@ -112,6 +112,7 @@ public class login extends HttpServlet {
 								Acceso = 1;
 
 							} else {
+								
 								error = 4;
 								System.out.println("No tiene acceso");
 							} // no tiene acceso al sistema
@@ -145,13 +146,20 @@ public class login extends HttpServlet {
 									Acceso = 1;
 								} else {
 									error = 4;
-									System.out.println("No tiene acceso");
+									
+									String error4 = "No tiene acceso";
+									HttpSession session = request.getSession();
+									session.setAttribute("error", error);
+									System.out.println(error4);
 								} // no tiene acceso al sistema
 							} /// Tiene cuenta de acceso, por lo cual verificamos que tenga el acceso al
 								/// sistema
 						} else {// Credenciales invalidas
 							error = 2;
-							System.out.println("Credenciales Invalidas");
+							String error2 = "Credenciales invalidas";
+							HttpSession session = request.getSession();
+							session.setAttribute("error", error);
+							System.out.println(error2);
 						}
 					}
 
@@ -189,11 +197,16 @@ public class login extends HttpServlet {
 
 				} else {
 					error = 5;
+					HttpSession session = request.getSession();
+					session.setAttribute("error", error);
 					System.out.println("No se encuentra al usuario");
+					
 				} // Si no existe usuario
 
 			} else {
 				error = 3;
+				HttpSession session = request.getSession();
+				session.setAttribute("error", error);
 				System.out.println("Campos vacios");
 			} // Si usuario y pass son nulos
 

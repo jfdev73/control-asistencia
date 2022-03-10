@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/login.css">
   <title>Document</title>
+  
 </head>
 
 <body>
@@ -30,7 +31,33 @@
           <input type="text" placeholder="becario.fernando" class="form-control" name="nickuser" required>
           <br>
           <label>Contraseña:</label>
-          <input type="password" placeholder="" class="form-control" name="password" required><br>
+          <input type="password" placeholder="" class="form-control pass" name="password" required><br>
+          <%
+        Object e = session.getAttribute("error");
+          if(e !=null ){
+          String error = e.toString();
+          
+          switch(error){
+          
+          case "2":{
+        	  out.println("<div class=msj>"+"<span class =alerta>¡Error! </span>"+"Credenciales inválidas"+"</div>");
+        	  break; 
+          }
+          
+          case "3":{
+        	  out.println("<div class=msj>"+"<span class =alerta>¡Error! </span>"+"Campos vacíos"+"</div>");
+        	  break;
+        	  
+          }
+          case "5":{
+        	  out.println("<div class=msj>"+ "<span class =alerta>¡Error! </span>" +"No se encuentra el usuario"+"</div>");
+        	  break; 
+        	  
+        	  }
+          
+          
+          }
+          	}%>
           <input type="submit" value="Enviar" class="enviar">
 
         </div>

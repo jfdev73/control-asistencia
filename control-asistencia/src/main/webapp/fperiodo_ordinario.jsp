@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%if(session.getAttribute("theNickName")!=null){ %>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,6 +10,9 @@
   <link rel="stylesheet" href="css/fperiodo_ordinario.css">
   <link rel="stylesheet" href="css/format.css">
   <title>vacaciones fuera del po</title>
+  <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
+  %>
 </head>
 
 <body>
@@ -47,3 +50,6 @@
 </body>
 
 </html>
+<%}else{
+	response.sendRedirect("index.jsp");
+} %>
