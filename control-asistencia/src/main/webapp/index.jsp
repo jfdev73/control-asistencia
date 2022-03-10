@@ -10,7 +10,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/login.css">
   <title>Document</title>
-  
+  <%
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
+  %>
 </head>
 
 <body>
