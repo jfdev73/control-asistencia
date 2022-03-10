@@ -41,7 +41,6 @@ public class Close extends HttpServlet {
 		
 		if(cerrar.equals("1")) {
 			System.out.println("valor de c:" + cerrar);
-			System.out.println("Son iguales");
 			HttpSession session = request.getSession();
 			session.removeAttribute("theNickName");
 			session.invalidate();
