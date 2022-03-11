@@ -99,9 +99,14 @@ textarea {
   text-align: left;
 }
 
+input[type=file]{
+	padding: 12px;
+	
+}
+
 .form__container {
   padding-top: 0;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 /**select options**/
 .not__view {

@@ -12,7 +12,7 @@ body {
 
 .button {
   margin-top: 10px;
-  background-color: #b16aec; /* Green */
+  background-color: #be52c7; /* Green */
   border: none;
   color: white;
   padding: 10px;
@@ -25,4 +25,9 @@ body {
   cursor: pointer;
   float: right;
   width: 6em;
+}
+
+
+.button:hover {
+	background-color: #d691db;
 }

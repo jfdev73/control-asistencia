@@ -1,4 +1,7 @@
-let opcion = document.getElementById('opcion');
+/**
+ * 
+ */
+ let opcion = document.getElementById('opcion');
 let causa = document.getElementById('causa');
 const elmt = document.querySelectorAll('.not_v');
 const txtArea = document.querySelector('.text__area');
@@ -39,9 +42,8 @@ function otros(){
 
 
 opcion.addEventListener('change', function (){
-  
   let valor = opcion.value;
-  console.log(valor)
+  console.log("valor",valor);
   switch (valor) {
     case '8':
       recortar(causas, 0, 7, causa);

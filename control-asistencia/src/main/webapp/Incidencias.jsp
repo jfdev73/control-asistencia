@@ -10,8 +10,8 @@
   <link rel="stylesheet" href="css/incidencias.css">
   <link rel="stylesheet" href="css/format.css">
   <title>Justificación de Incidencias</title>
-  <%
-  response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
+ <%/* 
+  response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");*/
   %>
 </head>
 
@@ -77,8 +77,19 @@
         </form>
       </div>-->
       <div class="form-group form__container">
-      <label>Selecciona la hora</label>
-      <input type="time">
+      <label>Horario o periodo de permiso</label><br>
+      <span>de </span> <input type="time"><span>a </span> <input type="time"><br><br>
+      <p>Selecciona la fecha por: </p>
+      <label for="tipoFecha">Periodo</label>
+    <input type="radio" id="periodo" name="tipoFecha" value="10">
+     <label for="tipoFecha">Día</label>
+    <input type="radio" id="dia" name="tipoFecha" value="11"><br>
+     <div class="dia"><label></label> <input type="date">
+      </div>
+      
+      <div class="periodo"><label>Del</label> <input type="date">
+      <label>al </label> <input type="date">
+      </div>
         <label for="autorizacion" class="label__opc">Seleccione el tipo de causa: </label>
         <select name="" id="opcion">
           <option value="7" selected disabled>Seleccione una opción</option>
@@ -103,15 +114,16 @@
         <input type="file"><br>
         <input type="submit" class="button">
       </div>
-      <b for="" class="label__read">Elaboró: </b><span>4235252356236</span><br>
-      <b for="" class="label__read">Autorizó: </b><span>43636346</span><br>
-      <b class="label__read">No. de plaza: </b><span>36263636</span><br>
+      <b for="" >Elaboró: </b><span>4235252356236</span><br>
+      <b for="">Autorizó: </b><span>43636346</span><br>
+      <b >Vob.Bo.: </b><span>36263636</span><br>
     </section>
     <section class="img__section container">
       <figure class="img__container"><img src="assets/img/puntualidad.svg" alt="" class="puntualidad__img"></figure>
     </section>
   </main>
-  <script src="js/select.js"></script>
+  <script src="js/1.js"></script>
+   <script src="js/app2.js"></script>
 </body>
 
 </html>
