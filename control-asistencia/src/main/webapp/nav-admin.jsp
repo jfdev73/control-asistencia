@@ -14,10 +14,9 @@
 <body>
  <%
  String  perfill =  (String) session.getAttribute("perfil");
- perfill = "54";
- String numP = "53";
+ //perfill = "54";
  out.println("imprimiendo perfil:"+perfill);
- if(session.getAttribute("perfil").equals("53") && perfill != null) {
+ if(/*session.getAttribute("perfil").equals("53")*/perfill.equals("53") && perfill != null) {
 	
   %> 
  <header><nav class="menu">
@@ -46,7 +45,7 @@
          <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Estatus</a>
 
         </li>
-        <span class="menu__item menu__nombre">Juan Fernando Miranda Monroy</span>
+        <span class="menu__item menu__nombre">${nombre}</span>
         <li class="menu__item"><a href="Close?cerrar=1" class="menu__link">Salir</a>
 
         </li>

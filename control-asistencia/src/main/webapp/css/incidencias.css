@@ -125,6 +125,10 @@ input[type=file]{
   margin-top: 20px;
 }
 
+.ocultar{
+	display:none;
+}
+
 @media (max-width: 750px) {
   .img__section {
     display: none;

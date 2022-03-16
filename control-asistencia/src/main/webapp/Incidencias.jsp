@@ -21,9 +21,7 @@
   <h1>Aviso de Justificación de Incidencias en la puntualidad y asistencia</h1>
   <main class="main">
     <section class="main__contanier container">
-      <b for="" class="label__read">Nombre del servidor público: </b><span class="servidor_publico">juan fernando
-        miranda
-        monroy</span> <br>
+      <b for="" class="label__read">Nombre del servidor público: </b><span class="servidor_publico">j${nombre}</span> <br>
       <b for="" class="label__read">cct: </b><span>4235252356236</span><br>
       <b for="" class="label__read">clave de servidor público: </b><span>43636346</span><br>
       <b class="label__read">No. de plaza: </b><span>36263636</span><br>
@@ -75,8 +73,10 @@
           <textarea id="subject" name="subject" placeholder="" style="height:200px"></textarea> <br>
           <input type="submit" value="Enviar" class="submit">
         </form>
-      </div>-->
+      </div> -->
       <div class="form-group form__container">
+      <label>FECHA</label>
+      <input type="date"><br><br>
       <label>Horario o periodo de permiso</label><br>
       <span>de </span> <input type="time"><span>a </span> <input type="time"><br><br>
       <p>Selecciona la fecha por: </p>
@@ -84,10 +84,10 @@
     <input type="radio" id="periodo" name="tipoFecha" value="10">
      <label for="tipoFecha">Día</label>
     <input type="radio" id="dia" name="tipoFecha" value="11"><br>
-     <div class="dia"><label></label> <input type="date">
+     <div class="dia ocultar"><label></label> <input type="date">
       </div>
       
-      <div class="periodo"><label>Del</label> <input type="date">
+      <div class="periodo ocultar"><label>Del</label> <input type="date">
       <label>al </label> <input type="date">
       </div>
         <label for="autorizacion" class="label__opc">Seleccione el tipo de causa: </label>
