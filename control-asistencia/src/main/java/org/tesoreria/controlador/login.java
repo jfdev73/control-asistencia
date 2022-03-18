@@ -55,8 +55,7 @@ public class login extends HttpServlet {
 		
 		// TODO Auto-generated method stub
 		doGet(request, response);
-		String validar = request.getParameter("validar");
-		System.out.println("vali:"+validar);
+		
 		// request.setCharacterEncoding("utf-8");
 		/////////////////////////////////////////////////// Datos de Usuario
 		String nickuser = request.getParameter("nickuser");
@@ -74,7 +73,7 @@ public class login extends HttpServlet {
 		System.out.println("");
 
 		if (prueba.equals(passw0rd)) {
-			System.out.println("Son iguales");
+			//System.out.println("Son iguales");
 
 		}
 		//////////////////////////////////////////////// Parametros de Respuesta
@@ -91,11 +90,11 @@ public class login extends HttpServlet {
 
 			if (nickuser != "" && passw0rd != "") {
 
-				System.out.println("entro");
+				//System.out.println("entro");
 
 				Usuario us = Usuario.getUsuario(nickuser);
 
-				System.out.println("entro 2");
+				//System.out.println("entro 2");
 
 				if (us != null) {// existe usuario
 
