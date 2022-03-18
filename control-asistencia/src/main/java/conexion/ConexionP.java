@@ -15,7 +15,7 @@ private static String driver = "org.postgresql.Driver";
 		try{
 			Class.forName(driver);
 			con = DriverManager.getConnection(connectString, user , password);
-			System.out.println("Conexion correcta");
+			//System.out.println("Conexion correcta");
 		}catch ( Exception e ){
 			System.out.println("ERROR "+ e.getMessage());
 			e.printStackTrace();

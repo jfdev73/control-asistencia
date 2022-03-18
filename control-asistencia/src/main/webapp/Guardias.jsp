@@ -7,6 +7,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css"
+    rel="stylesheet" />
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"
+    rel="stylesheet" >
+    <link rel="stylesheet" href="css/date.css">
   <link rel="stylesheet" href="css/guardias.css">
   <link rel="stylesheet" href="css/format.css">
   <title>Guardias</title>
@@ -42,17 +49,26 @@
         <select name="autorizacion" id="autorizacion">
           <option value="falta">Falta de puntualidad a la entrada</option>
           <option value="saab">Falta de asistencia</option>
-          <option value="opel">Dias económicos
-            <br><small>(hasta 14 al año a servidores publicos sindicalizados)</small>
-          </option>
-          <option value="audi">Retirarse entre horas</option>
-          <option value="audi">Consulta médica</option>
-          <option value="audi">Salida antes por autorización</option>
-          <option value="opel">permiso por lactancia
-            <br><small>(hasta 6 meses después del parto)</small>
-          </option>
+          
+
         </select>
-        <button>Agregar</button>
+        <form method="post" id="dates">
+    <label class="control-label" for="text">Selecciona las fechas para las guardias del usuario:</label>
+    <div class="container_date">
+      <div class="date datepicker3 container-calendar " id="newTratFechaInii">
+        <input type="text" id="dates" value="" placeholder="CLIC AQUÍ Ó EN EL ICONO" required autocomplete="off"
+          class="dates">
+        <span class="input-group-addon manito-clic iconc">
+          <i class="glyphicon glyphicon-calendar"></i>
+        </span>
+      </div>
+    </div>
+
+    <button type="button" name="clickea" onclick="validar ();"> clickea </button>
+
+  </form>
+        
+        <button class="button">Agregar</button>
 
       </div>
     </section>
@@ -60,6 +76,38 @@
       <figure class="img__container"><img src="assets/img/guardias.svg" alt="" class="puntualidad__img"></figure>
     </section>
   </main>
+  <script type="text/javascript">
+    function validar() {
+      let valor = document.getElementById("dates")[0].value;
+
+      if (valor != "") {
+        console.log("no esta vacio");
+        alert(valor)
+      } else {
+        alert('Vacío');
+      }
+    }
+
+  </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+  <!--Latest compiled and minified JavaScript-->
+
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.es.min.js"></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/bootstrapValidator.min.js"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/js/language/es_ES.min.js"></script>
+  <script src="js/datepicker.js"></script>
 </body>
 
 </html>

@@ -88,6 +88,7 @@ public class Usuario {
   private InputStream archivoe;
   
   private byte[] bytes;
+ 
   
   public Usuario() {}
   
@@ -586,7 +587,18 @@ public class Usuario {
           con.close(); 
       } catch (SQLException e) {
         e.printStackTrace();
-      } 
+      } finally {
+          try {
+              if (res != null)
+                res.close(); 
+              if (st != null)
+                st.close(); 
+              if (con != null)
+                con.close(); 
+            } catch (SQLException e) {
+              e.printStackTrace();
+            } 
+          } 
     } 
     return ca;
   }

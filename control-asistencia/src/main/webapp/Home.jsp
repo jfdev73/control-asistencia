@@ -31,7 +31,7 @@
           </figure>
           <h3 class="nombre">${nombre}</h3>
           <p class="about__paragraph">Subsecretaria de tesoreria</p>
-          <p class="about__paragraph">Unidad de Informática</p>
+          <p class="about__paragraph">${unidad}</p>
         </div>
         <br>
         <div class="main__fechas">

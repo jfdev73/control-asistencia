@@ -81,7 +81,7 @@
         </li>
         <span class="menu__item menu__nombre">${nombre}</span>
         
-        <li class="menu__item"><a href="login?accion=3" class="menu__link">Salir</a>
+        <li class="menu__item"><a href="Close?cerrar=1" class="menu__link">Salir</a>
 
         </li>
 

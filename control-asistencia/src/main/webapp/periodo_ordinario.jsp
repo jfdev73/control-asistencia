@@ -51,7 +51,7 @@
             <br><small>(hasta 6 meses después del parto)</small>
           </option>
         </select>
-        <button>Agregar</button>
+        <button class="button">Agregar</button>
 
       </div>
     </section>

@@ -1,29 +1,23 @@
-package conexion;
+package org.tesoreria.controlador;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionIdListener;
-
-import org.tesoreria.controlador.login;
 
 /**
- * Servlet implementation class Close
+ * Servlet implementation class Incidencias_servlet
  */
-@WebServlet("/Close")
-public class Close extends HttpServlet {
+@WebServlet("/Incidencias_servlet")
+public class Incidencias_servlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Close() {
+    public Incidencias_servlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,21 +27,7 @@ public class Close extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		//request.getSession().removeAttribute("id");
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
-		String cerrar = request.getParameter("cerrar");
-		System.out.println("valor de integer:"+login.varClose);
-		
-		
-		if(cerrar.equals("1")) {
-			System.out.println("valor de c:" + cerrar);
-			HttpSession session = request.getSession();
-			session.removeAttribute("theNickName");
-			session.invalidate();
-			//response.sendRedirect("index.jsp");
-			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/index.jsp");
-			dispatcher.forward(request, response);
-		}
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -56,6 +36,11 @@ public class Close extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		String date_just = request.getParameter("date_just");
+		System.out.println("fecha: "+date_just);
+		
+		
+		
 	}
 
 }

@@ -1,4 +1,4 @@
-package org.tesoreria;
+package org.tesoreria.controlador;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.tesoreria.Titulares;
 
 import conexion.ConexionLdap;
 import conexion.Usuario;
@@ -67,7 +68,7 @@ public class login extends HttpServlet {
 		
 
 		String tEnc = DigestUtils.md5Hex(passw0rd);
-		String prueba = DigestUtils.md5Hex("Acceso2020,");
+		String prueba = DigestUtils.md5Hex("Acceso2022,");
 		System.out.println("ejemplo de con: " + prueba);
 		System.out.println("Texto Encriptado con M5 : " + tEnc);
 		System.out.println("");
@@ -170,6 +171,20 @@ public class login extends HttpServlet {
 						session.setMaxInactiveInterval(60 * 60); //// Sesion de 60 minutos
 						String nick = us.getNickuser();
 						System.out.println("nick:" + nick);
+						int ua = us.getUni_id();
+						System.out.println("unidad:" + ua);
+						String unidad = us.getDescripcion_uni();
+						System.out.println("unidad:" + unidad);
+						session.setAttribute("unidad", unidad);
+						
+						Titulares t =  Titulares.getTitulares(ua);
+						String nombre_titular = t.getNombre_titular();
+						System.out.println("nombre de titular: "+nombre_titular);
+						session.setAttribute("nombret", nombre_titular);
+						
+					
+						
+						
 					
 						
 						session.setAttribute("theNickName", us.getNickuser());
