@@ -52,8 +52,6 @@ public void setCargo_titular(String cargo_titular) {
 
 
 public static Titulares getTitulares(int id_usuario) {
-	Usuario us = new Usuario();
-	int id = us.getUsuario_id();
 	int id_unidad = id_usuario;
     Connection con = ConexionP.getConexion();
     Statement st = null;

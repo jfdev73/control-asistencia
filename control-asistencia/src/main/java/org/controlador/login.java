@@ -1,8 +1,9 @@
-package org.tesoreria.controlador;
+package org.controlador;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.tesoreria.Incidencias;
 import org.tesoreria.Titulares;
 
 import conexion.ConexionLdap;
@@ -67,7 +69,7 @@ public class login extends HttpServlet {
 		
 
 		String tEnc = DigestUtils.md5Hex(passw0rd);
-		String prueba = DigestUtils.md5Hex("Acceso2022,");
+		String prueba = DigestUtils.md5Hex("Acceso2022.");
 		System.out.println("ejemplo de con: " + prueba);
 		System.out.println("Texto Encriptado con M5 : " + tEnc);
 		System.out.println("");
@@ -81,7 +83,7 @@ public class login extends HttpServlet {
 		Integer error = 0;
 		Integer Acceso = 0;
 
-		System.out.println("1" + "esto es  " + nickuser + " " + passw0rd);
+		System.out.println("1 " + "usuario:  " + nickuser + " "+"password: " + passw0rd);
 
 		try {
 			
@@ -93,7 +95,22 @@ public class login extends HttpServlet {
 				//System.out.println("entro");
 
 				Usuario us = Usuario.getUsuario(nickuser);
-
+				
+			
+				
+				/*rrayList<Usuario> usus;
+				try {
+					usus = us.listarUsuarios(id);
+					for(Usuario u:usus) {
+						System.out.println("Clave de servidor: "+u.getClave_servidor());
+						System.out.println("Nombre: "+u.getNombre());
+						
+					}
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+*/
 				//System.out.println("entro 2");
 
 				if (us != null) {// existe usuario
@@ -108,7 +125,7 @@ public class login extends HttpServlet {
 						System.out.println(cl);
 						if (cl == true) {
 							us = Usuario.getVerificarPerfil(us, 36);// DirectorioWeb
-							if (us.getPerfil() == 53 || us.getPerfil() == 54) {// Acceso al sistema
+							if (us.getPerfil() == 53 || us.getPerfil() == 54 || us.getPerfil()== 55 ) {// Acceso al sistema
 								Acceso = 1;
 
 							} else {
@@ -141,7 +158,7 @@ public class login extends HttpServlet {
 
 							} else {
 								us = Usuario.getVerificarPerfil(us, 36);// DirectorioWeb
-								if (us.getPerfil() == 53 || us.getPerfil() == 54) {// Acceso al sistema
+								if (us.getPerfil() == 53 || us.getPerfil() == 54 || us.getPerfil()==55) {// Acceso al sistema
 									System.out.println("Acceso al sistema");
 									Acceso = 1;
 								} else {
@@ -172,11 +189,38 @@ public class login extends HttpServlet {
 						System.out.println("nick:" + nick);
 						int ua = us.getUni_id();
 						System.out.println("unidad:" + ua);
+						int upid = us.getUsuario_id();
+						
+						ArrayList<Usuario> lusus;
+						try {
+							lusus = us.listarUsuarios(ua);
+							for(Usuario u:lusus) {
+								System.out.println("Clave de servidor: "+u.getClave_servidor());
+								System.out.println("Nombre: "+u.getNombre());
+								
+							}
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
+						
+						System.out.println("id_percepciones");
+						//Usuario t =  Titulares.getTitulares(ua);
+						int i = us.getUsuario_id();
+						System.out.println("id: "+i);
+						
+						Usuario uj = Usuario.getIdPercep(i);
+						 
+						 int uper = uj.getId_percepciones();
+						 session.setAttribute("idpercep", uper);
+						System.out.println("percep: "+uper);
+						
 						String unidad = us.getDescripcion_uni();
 						System.out.println("unidad:" + unidad);
 						session.setAttribute("unidad", unidad);
-						
 						Titulares t =  Titulares.getTitulares(ua);
+						
 						String nombre_titular = t.getNombre_titular();
 						System.out.println("nombre de titular: "+nombre_titular);
 						session.setAttribute("nombret", nombre_titular);
@@ -195,8 +239,7 @@ public class login extends HttpServlet {
 
 						String v = (String) session.getAttribute("perfil");
 
-						System.out.println("antes de la impresion session");
-						System.out.println("Objeto:" + v);
+						System.out.println("Perfil:" + v);
 						session.setAttribute("theNickName", nick);
 						String nombre = us.getNombre();
 						session.setAttribute("nombre", nombre);

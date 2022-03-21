@@ -24,7 +24,7 @@
       <figure class="container__home"><a href="Home.jsp"><img src="assets/img/home.svg" alt="" class="img__home"></a>
       </figure>
       <ul class="menu__links">
-        <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Incidencias</a>
+        <li class="menu__item"><a href="Incidencias_servlet?accion=5" class="menu__link">Incidencias</a>
 
         </li>
         <li class="menu__item menu__item--show">
@@ -94,7 +94,44 @@
     </section>
 
   </nav></header>
-  <%} %>
+  <%}else if(perfill.equals("55")) {%>
+  <header><nav class="menu">
+    <section class="menu__container">
+      <figure class="container__home"><a href="Home.jsp"><img src="assets/img/home.svg" alt="" class="img__home"></a>
+      </figure>
+      <ul class="menu__links">
+        <li class="menu__item"><a href="Incidencias_servlet?accion=5" class="menu__link">Incidencias</a>
+
+        </li>
+        <li class="menu__item menu__item--show">
+          <a href="#" class="menu__link prueba">Vacaciones <img src="assets/img/arrow.svg" alt="" class="menu__arrow"></a>
+          <ul class="menu__nesting">
+            <li class="menu__inside">
+              <a href="fperiodo_ordinario.jsp" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
+            </li>
+          </ul>
+        </li>
+         <li class="menu__item"><a href="Incidencias.jsp" class="menu__link">Estatus</a>
+
+        </li>
+        <span class="menu__item menu__nombre">${nombre}</span>
+        
+        <li class="menu__item"><a href="Close?cerrar=1" class="menu__link">Salir</a>
+
+        </li>
+
+      </ul>
+      <div class="menu__hamburguer">
+        <img src="assets/img/menu.svg" alt="" class="menu__img">
+      </div>
+
+
+    </section>
+
+  </nav></header>
+  
+  
+   <%}%>
 <script src="js/app.js"></script>
 </body>
 

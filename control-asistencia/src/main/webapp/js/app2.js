@@ -20,13 +20,14 @@ if(tipo ==10){
   
 }
 
+if(periodo.value !=null){
 periodo.addEventListener('click', function tipo() {
   if(periodo.checked){
 let valorPeriodo = periodo.value;
 mostrarInputDate(valorPeriodo);
   }
 });
-
+}
 dia.addEventListener('click', function tipo() {
 
   if(dia.checked){

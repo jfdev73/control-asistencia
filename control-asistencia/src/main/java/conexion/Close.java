@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.servlet.http.HttpSessionIdListener;
 
-import org.tesoreria.controlador.login;
+import org.controlador.login;
+
+
 
 /**
  * Servlet implementation class Close

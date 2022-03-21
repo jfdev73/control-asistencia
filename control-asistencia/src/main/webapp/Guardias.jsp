@@ -40,8 +40,8 @@
           <input type="radio" id="css" name="fav_language" value="CSS">
           <label for="css">1° periodo segunda etapa</label>
           <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-          <label for="javascript">2° periodo</label><br>
-          <span>del </span><input type="date"> <span>al</span> </span><input type="date"><br>
+          <label for="javascript">2° periodo</label><br><br>
+          <br><br>
         </form>
       </div>
       <div class="relacion">

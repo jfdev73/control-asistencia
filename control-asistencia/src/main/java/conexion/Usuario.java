@@ -7,6 +7,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
+
+import conexion.ConexionP;
+import conexion.Usuario;
+
+import org.tesoreria.Titulares;
 
 public class Usuario {
   private int status;
@@ -69,6 +76,8 @@ public class Usuario {
   
   private String descripcion_sistema;
   
+  private String clave_servidor;
+  
   private int email_id;
   
   private int status_email;
@@ -87,12 +96,14 @@ public class Usuario {
   
   private InputStream archivoe;
   
+  private int id_percepciones;
+  
   private byte[] bytes;
  
   
   public Usuario() {}
   
-  public Usuario(int status, int usuarios_asign_id, int usuario_id, int cargos_id, int nivel_cargo, int uni_id, int nick_id, String nombre, String ap_pat, String ap_mat, String descripcion_cargo, String clave_uni, String descripcion_uni, String nickuser, Date creado_en, Date modificado_en, String creado_por, String modificado_por, Boolean active_directory, Boolean cuenta_expirada, int elemento_autorizado_id, int elemento_id, int status_elemento, int perfil, String descripcion_elemento, Boolean visible, int sistema_id, int usuario_perfil_id, int status_sistema, String descripcion_sistema) {
+  public Usuario(int status, int usuarios_asign_id, int usuario_id, int cargos_id, int nivel_cargo, int uni_id, int nick_id, String nombre, String ap_pat, String ap_mat, String descripcion_cargo, String clave_uni, String descripcion_uni, String nickuser, Date creado_en, Date modificado_en, String creado_por, String modificado_por, Boolean active_directory, Boolean cuenta_expirada, int elemento_autorizado_id, int elemento_id, int status_elemento, int perfil, String descripcion_elemento, Boolean visible, int sistema_id, int usuario_perfil_id, int status_sistema, String descripcion_sistema, String clave_servidor, int id_percepciones) {
     this.status = status;
     this.usuarios_asign_id = usuarios_asign_id;
     this.usuario_id = usuario_id;
@@ -123,6 +134,8 @@ public class Usuario {
     this.usuario_perfil_id = usuario_perfil_id;
     this.status_sistema = status_sistema;
     this.descripcion_sistema = descripcion_sistema;
+    this.clave_servidor = clave_servidor;
+    this.id_percepciones= id_percepciones;
   }
   
   public int getStatus_elemento() {
@@ -437,6 +450,15 @@ public class Usuario {
     this.last_update = last_update;
   }
   
+  public String getClave_servidor() {
+	    return this.clave_servidor;
+	  }
+	  
+	  public void setClave_servidor(String clave_servidor) {
+	    this.clave_servidor = clave_servidor;
+	  }
+  
+  
   public InputStream getArchivoe() {
     return this.archivoe;
   }
@@ -452,6 +474,14 @@ public class Usuario {
   public void setBytes(byte[] bytes) {
     this.bytes = bytes;
   }
+  
+  public void setId_percepciones(int id_p) {
+	    this.id_percepciones = id_p;
+	  }
+	  
+ public int getId_percepciones() {
+	    return this.id_percepciones;
+	  }
   
   public static Usuario getUsuario(String usuario) {
     Connection con = ConexionP.getConexion();
@@ -679,6 +709,31 @@ public class Usuario {
     } 
     return uid;
   }
+  public static Usuario getIdPercep(int id_usuario) {
+	    Connection con = ConexionP.getConexion();
+	    Statement st = null;
+	    ResultSet res = null;
+	    String sql = "";
+	    Usuario u = null;
+	    try {
+	    st = con.createStatement();
+	    sql = "SELECT  up.per_us_id, (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, up.usuario from \r\n"
+	    		+ "inventario.usuarios u , inventario.percepciones_usuarios up where u.usuario_id = up.usuario \r\n"
+	    		+ "and up.status = 1 and u.usuario_id ="+id_usuario;
+	    res = st.executeQuery(sql);
+	    while (res.next()) {
+	      u = new Usuario();
+	      u.setId_percepciones(res.getInt(1));
+	      //u.setNombre_titular(res.getString(2));
+	      
+	    	}
+	    }catch(SQLException e){
+	    	 e.printStackTrace();
+	    }
+	return u;
+	}
+  
+  
   
   public static Usuario getUsuarioImagen(Integer id) {
     Connection con = ConexionP.getConexion();
@@ -717,5 +772,39 @@ public class Usuario {
       } 
     } 
     return u;
+  }
+  
+  
+  public ArrayList<Usuario> listarUsuarios(Integer id) {
+	  ArrayList <Usuario> usuarios = new ArrayList<Usuario>();
+	  Connection con = ConexionP.getConexion();
+	  Statement st = null;
+	  ResultSet rs = null;
+	  String sql = "";
+	  //Usuario u = new Usuario();
+	  try {
+		    st = con.createStatement();
+		    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor, ucc.descripcion, uua.clave, uua.descripcion from \r\n"
+		    		+ "inventario.usuarios u , inventario.usuarios_asign ua, inventario.usuarios_c_cargos ucc, \r\n"
+		    		+ "inventario.usuarios_uni_admva uua where u.usuario_id = ua.usuarios_usuario_id and uua.uni_id="+id+"and \r\n"
+		    		+ "ucc.cargos_id = usuarios_c_cargos_cargos_id and ucc.unidad_admin = uua.uni_id and ua.status = 1 \r\n"
+		    		+ "--and u.claveservidor is not null\r\n"
+		    		+ "--and u.ap_pat != ' '\r\n"
+		    		+ "and u.ap_pat <> '  '\r\n"
+		    		+ "and u.ap_mat != '  '\r\n"
+		    		+ "and ucc.descripcion <> 'BECARIO';";
+		    rs = st.executeQuery(sql);
+		    while (rs.next()) {
+		    	Usuario u = new Usuario();
+		    	u.setNombre(rs.getString(1));
+		        u.setClave_servidor(rs.getString(2));
+		    	usuarios.add(u);
+		      
+		    	}
+		    }catch(SQLException e){
+		    	 e.printStackTrace();
+		    }
+	  
+	  return usuarios;
   }
 }
