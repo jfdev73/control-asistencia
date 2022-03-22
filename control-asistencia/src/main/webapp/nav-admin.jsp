@@ -38,7 +38,7 @@
               " class="menu__link menu__link--inside">Periodo Ordinario</a>
             </li>-->
             <li class="menu__inside">
-              <a href="fperiodo_ordinario.jsp" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
+              <a href="Vacaciones_fpo?accion=5" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
             </li>
           </ul>
         </li>
@@ -107,7 +107,7 @@
           <a href="#" class="menu__link prueba">Vacaciones <img src="assets/img/arrow.svg" alt="" class="menu__arrow"></a>
           <ul class="menu__nesting">
             <li class="menu__inside">
-              <a href="fperiodo_ordinario.jsp" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
+              <a href="Vacaciones_fpo?accion=5" class="menu__link menu__link--inside">Fuera del periodo ordinario</a>
             </li>
           </ul>
         </li>
