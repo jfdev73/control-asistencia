@@ -8,10 +8,12 @@ l
  let valorStatus = inputStatus.innerHTML;
  inputStatus.forEach(e => {
 	if(e.innerHTML == 1){
-		e.innerHTML = "activo";
+		e.innerHTML = "en espera";
 		
 	}else if(e.innerHTML == 2){
-		e.innerHTML = "inactivo";
+		e.innerHTML = "aceptado";
+	}else if(e.innerHTML ==3){
+		e.innerHTML = "rechazado";
 	}
 	});
  /*if(valorStatus ==1){

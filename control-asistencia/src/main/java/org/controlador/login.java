@@ -4,6 +4,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -69,7 +71,7 @@ public class login extends HttpServlet {
 		
 
 		String tEnc = DigestUtils.md5Hex(passw0rd);
-		String prueba = DigestUtils.md5Hex("Acceso2022.");
+		String prueba = DigestUtils.md5Hex("Acceso2022");
 		System.out.println("ejemplo de con: " + prueba);
 		System.out.println("Texto Encriptado con M5 : " + tEnc);
 		System.out.println("");
@@ -188,10 +190,16 @@ public class login extends HttpServlet {
 						String nick = us.getNickuser();
 						System.out.println("nick:" + nick);
 						int ua = us.getUni_id();
+						session.setAttribute("id_uni_adm", ua);
 						System.out.println("unidad:" + ua);
 						int upid = us.getUsuario_id();
+						session.setAttribute("id_usuario", upid);
+						Usuario u =  Usuario.getClaveS(upid);
+						String claveSer = u.getClave_servidor();
+						System.out.println("Clave de servidor: "+claveSer);
+						session.setAttribute("claveservidor", claveSer);
 						
-						ArrayList<Usuario> lusus;
+						/*ArrayList<Usuario> lusus;
 						try {
 							lusus = us.listarUsuarios(ua);
 							for(Usuario u:lusus) {
@@ -202,7 +210,7 @@ public class login extends HttpServlet {
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
-						}
+						}*/
 						
 						
 						System.out.println("id_percepciones");
@@ -221,9 +229,19 @@ public class login extends HttpServlet {
 						session.setAttribute("unidad", unidad);
 						Titulares t =  Titulares.getTitulares(ua);
 						
+						Titulares d = Titulares.getDelegado();
+						int id_titular = t.getId_titular();
+						session.setAttribute("id_titular", id_titular);
+						System.out.println("id_titular"+id_titular);
+						int id_delegado = d.getId_encargado_delegacion();
+						session.setAttribute("id_delegado", id_delegado);
+						System.out.println("id_delegado: "+id_delegado);
 						String nombre_titular = t.getNombre_titular();
+						String nombre_delegado = d.getNom_delegacion();
 						System.out.println("nombre de titular: "+nombre_titular);
-						session.setAttribute("nombret", nombre_titular);
+						System.out.println("nombre de delegado: "+nombre_delegado);
+						
+						//session.setAttribute("nombret", nombre_titular);
 						
 					
 						
@@ -242,7 +260,20 @@ public class login extends HttpServlet {
 						System.out.println("Perfil:" + v);
 						session.setAttribute("theNickName", nick);
 						String nombre = us.getNombre();
-						session.setAttribute("nombre", nombre);
+						
+						StringBuffer strbf = new StringBuffer();
+						Matcher match = Pattern.compile("([a-z])([a-z]*)", Pattern.CASE_INSENSITIVE).matcher(nombre);
+						while(match.find()) {
+							match.appendReplacement(strbf, match.group(1).toUpperCase()+match.group(2).toLowerCase());
+							
+						}
+						
+						String nombre_m = match.appendTail(strbf).toString();
+						//System.out.println("Nombree: "+nombre);
+						//System.out.println("Nombre modificado: "+nombre_m);
+						session.setAttribute("nombre", nombre_m);
+						
+						
 
 						response.sendRedirect("Home.jsp");
 						

@@ -23,16 +23,16 @@
     <section class="main__contanier container">
       <b for="" class="label__read">Nombre del servidor público: </b><span class="servidor_publico">${nombre}</span> <br>
       <b for="" class="label__read">cct: </b><span>4235252356236</span><br>
-      <b for="" class="label__read">clave de servidor público: </b><span>43636346</span><br>
-      <b class="label__read">No. de plaza: </b><span>36263636</span><br>
+      <b for="" class="label__read">clave de servidor público: </b><span>${claveservidor}</span><br>
+      <b class="label__read">No. de plaza: </b><span>${plaza}</span><br>
       
       <form action="Incidencias_servlet?accion=6" method="post">
       <input type ="hidden" name = "accion" value ="6">
       <div class="form-group form__container">
       <label>FECHA</label>
-      <input type="date" name="date_just"><br><br>
+      <input type="date" name="date_just" required><br><br>
       <label>Horario o periodo de permiso</label><br>
-      <span> de </span> <input type="time" name="h_inicio"><span> a </span> <input type="time" name="h_final"><br><br>
+      <span> de </span> <input type="time" name="h_inicio" required><span> a </span> <input type="time" name="h_final" required><br><br>
       <p>Selecciona la fecha por: </p>
       <label for="tipoFecha">Periodo</label>
     <input type="radio" id="periodo" name="tipoFecha" value="10">
@@ -45,7 +45,7 @@
       <label> al </label> <input type="date" name="datep_final">
       </div>
         <label for="autorizacion" class="label__opc">Seleccione el tipo de causa: </label>
-        <select name="tipo_causa" id="opcion" >
+        <select name="tipo_causa" id="opcion" required>
           <option value="7" selected disabled>Seleccione una opción</option>
           <option value="8">Por autorización del superior inmediato</option>
           <option value="9">No pudo registrar por</option>
@@ -59,18 +59,18 @@
 
       <div class="form-group">
         <label for="no pudo" class="not_v label__opc">Seleccione la causa:</label>
-        <select name="causa" id="causa" class="not_v">
+        <select name="causa" id="causa" class="not_v" required>
           <option value="0">-</option>
         </select>
         <div class="otros">
           <textarea name="" id="" cols="30" rows="10" class="text__area txt_not"></textarea>
         </div>
-        <input type="file" name="archivo"><br>
+        <!--  <input type="file" name="archivo"><br>-->
         
       </div>
-      <b for="" >Elaboró: </b><span>4235252356236</span><br>
+      <!--<b for="" >Elaboró: </b><span>4235252356236</span><br>
       <b for="">Autorizó: </b><span>43636346</span><br>
-      <b >Vob.Bo.: </b><span>36263636</span><br>
+      <b >Vob.Bo.: </b><span>36263636</span><br>-->
       <input type="submit" class="button">
       </form>
     </section>

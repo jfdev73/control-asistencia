@@ -775,7 +775,7 @@ public class Usuario {
   }
   
   
-  public ArrayList<Usuario> listarUsuarios(Integer id) {
+  public static ArrayList<Usuario> listarUsuarios(Integer id)throws SQLException {
 	  ArrayList <Usuario> usuarios = new ArrayList<Usuario>();
 	  Connection con = ConexionP.getConexion();
 	  Statement st = null;
@@ -784,7 +784,7 @@ public class Usuario {
 	  //Usuario u = new Usuario();
 	  try {
 		    st = con.createStatement();
-		    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor, ucc.descripcion, uua.clave, uua.descripcion from \r\n"
+		    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor,u.usuario_id, ucc.descripcion, uua.clave, uua.descripcion from \r\n"
 		    		+ "inventario.usuarios u , inventario.usuarios_asign ua, inventario.usuarios_c_cargos ucc, \r\n"
 		    		+ "inventario.usuarios_uni_admva uua where u.usuario_id = ua.usuarios_usuario_id and uua.uni_id="+id+"and \r\n"
 		    		+ "ucc.cargos_id = usuarios_c_cargos_cargos_id and ucc.unidad_admin = uua.uni_id and ua.status = 1 \r\n"
@@ -798,6 +798,7 @@ public class Usuario {
 		    	Usuario u = new Usuario();
 		    	u.setNombre(rs.getString(1));
 		        u.setClave_servidor(rs.getString(2));
+		        u.setUsuario_id(rs.getInt(3));
 		    	usuarios.add(u);
 		      
 		    	}
@@ -807,4 +808,29 @@ public class Usuario {
 	  
 	  return usuarios;
   }
+  
+  public static Usuario getClaveS(int id) {
+	  Connection con = ConexionP.getConexion();
+	    Statement st = null;
+	    ResultSet res = null;
+	    String sql = "";
+	    Usuario u = null;
+	    try {
+	    st = con.createStatement();
+	    sql = "SELECT  u.claveservidor  from inventario.usuarios u where u.usuario_id="+id+";";
+	    res = st.executeQuery(sql);
+	    while (res.next()) {
+	      u = new Usuario();
+	      u.setClave_servidor(res.getString(1));
+	      //u.setNombre_titular(res.getString(2));
+	    	}
+	    }catch(SQLException e){
+	    	 e.printStackTrace();
+	    }
+	return u;
+	  
+	  
+  }
+	  
+  
 }

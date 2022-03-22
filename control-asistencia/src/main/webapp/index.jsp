@@ -30,7 +30,7 @@
       <form action="login?accion=1" class="login-form" method="post">
         <div>
           <label>Usuario:</label>
-          <input type="text" placeholder="becario.fernando" class="form-control" name="nickuser" required>
+          <input type="text" placeholder="Ingresa tu usuario" class="form-control" name="nickuser" required>
           <br>
           <label>Contraseña:</label>
           <input type="password" placeholder="" class="form-control pass" name="password" required><br>

@@ -1,0 +1,22 @@
+@charset "ISO-8859-1";
+.butt{
+	background-color: black;
+	padding:5px;
+	cursor:pointer;
+	border:none;
+	border-radius:3px;
+	 
+}
+
+.aceptado{
+	background-color: #22E75A;
+	color: black !important;
+}
+.rechazado{
+	background: #FE3F39;
+	color:aqua;
+}
+
+.ancla{
+	font-weight: bold;
+}
