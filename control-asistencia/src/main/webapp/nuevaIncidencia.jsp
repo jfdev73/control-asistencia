@@ -9,6 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/incidencias.css">
   <link rel="stylesheet" href="css/format.css">
+  <link rel="stylesheet" href="css/alerta.css">
   <title>Justificación de Incidencias</title>
  <%/* 
   response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");*/
@@ -19,6 +20,22 @@
   <jsp:include page="nav-admin.jsp"></jsp:include>
   
   <h1>Aviso de Justificación de Incidencias en la puntualidad y asistencia</h1>
+  <%	Integer e = (Integer)(request.getAttribute("errorjust"));
+  		if(e!=null){
+  		switch(e){
+  		case 3:{
+  			out.println("<div class='msj>'"+"<span> ¡Error! </span>"+"Selecciona una fecha de permiso"+"</div>");
+  			break;
+  		}
+  		
+  		}
+  		}
+  		String mensaje = null;
+      mensaje =(String)request.getAttribute("mensaje");
+      if(mensaje !=null){
+      out.println("<p class='alertac'>"+"¡"+mensaje.toUpperCase()+"!"+"</p>");
+      }
+      %>
   <main class="main">
     <section class="main__contanier container">
       <b for="" class="label__read">Nombre del servidor público: </b><span class="servidor_publico">${nombre}</span> <br>
@@ -33,7 +50,7 @@
       <input type="date" name="date_just" required><br><br>
       <label>Horario o periodo de permiso</label><br>
       <span> de </span> <input type="time" name="h_inicio" required><span> a </span> <input type="time" name="h_final" required><br><br>
-      <p>Selecciona la fecha por: </p>
+      <p>Selecciona la fecha de permiso por: </p>
       <label for="tipoFecha">Periodo</label>
     <input type="radio" id="periodo" name="tipoFecha" value="10">
      <label for="tipoFecha">Día</label>
@@ -60,10 +77,12 @@
       <div class="form-group">
         <label for="no pudo" class="not_v label__opc">Seleccione la causa:</label>
         <select name="causa" id="causa" class="not_v" required>
-          <option value="0">-</option>
+          <option value="a">-</option>
         </select>
         <div class="otros">
           <textarea name="" id="" cols="30" rows="10" class="text__area txt_not"></textarea>
+           
+      
         </div>
         <!--  <input type="file" name="archivo"><br>-->
         

@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
     <%@ page import = "java.util.ArrayList" %>
     <%@ page import = "conexion.Usuario" %>
+    <%@ page import = "org.tesoreria.Periodo" %>
     <%@ page import = "javax.servlet.http.HttpSession" %>
     
 <!DOCTYPE html>
@@ -31,59 +32,81 @@
   <h1>Guardias</h1>
   <main class="main">
     <section class="main__contanier container">
-      <b for="" class="label__read">Dirección: </b><span class="servidor_publico">juan fernando
+     <!--  <b for="" class="label__read">Dirección: </b><span class="servidor_publico">juan fernando
         miranda
         monroy</span> <br>
-      <b for="" class="label__read">departamento: </b><span>4235252356236</span><br>
-      <b for="" class="label__read">subdirección: </b><span>Unidad de Informática</span><br>
+       <b for="" class="label__read">departamento: </b><span>4235252356236</span><br>
+      <b for="" class="label__read">subdirección: </b><span>Unidad de Informática</span><br>-->
       <div class="form__container">
-        <form action="#" class="form__incidencias">
+        <!--  form action="Guardias_servlet" class="form__incidencias" method="get">
+        <input type="hidden" value="9" name="accion">
           <p>Selecciona el periodo:</p><br>
-          <input type="radio" id="html" name="fav_language" value="HTML">
+          <input type="radio" id="1" name="periodo" value="1">
           <label for="html">1° periodo primera etapa</label>
-          <input type="radio" id="css" name="fav_language" value="CSS">
+          <input type="radio" id="2" name="periodo" value="2">
           <label for="css">1° periodo segunda etapa</label>
-          <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+          <input type="radio" id="3" name="periodo" value="3">
           <label for="javascript">2° periodo</label><br><br>
+          
+          <input type="submit" value="Siguiente">
           <br><br>
         </form>
-      </div>
+      </div>-->
       <%
       HttpSession se = request.getSession(true);
 		int id_unidad = (int) se.getAttribute("id_uni_adm");
         ArrayList<Usuario> listUsu;
-		listUsu = Usuario.listarUsuarios(id_unidad);	%>
+		listUsu = Usuario.listarUsuarios(id_unidad);	
+		
+		ArrayList<Periodo> listPeriodo;
+		listPeriodo = Periodo.getPeriodos();
+		%>
       <div class="relacion">
-        <h2>relación de servidores públicos que cubriran guardia</h2>
+      <select>
+      <% for(Periodo p:listPeriodo){
+    	  out.print("<option>"+p.getPeriodo()+" PERIODO "+p.getEtapa()+" ETAPA");
+      }%>
+      </select>
+        <h2>Relación de servidores públicos que cubriran guardia</h2>
+        <form method="post" id="dates" action="Guardias_servlet?accion=6">
         
-        <select name="autorizacion" id="autorizacion">
+        <select name="usuariosl" id="autorizacion">
         <% for (Usuario u:listUsu){
     	//out.print("<option>"+u.getNombre()+"</option>");
     	
-    	out.print('<'+"option value="+u.getUsuario_id()+'>'+u.getNombre()+"</option>");
+    	out.print('<'+"option value="+u.getId_percepciones()+'>'+u.getNombre()+"</option>");
     					} %>
-          <option value="falta">Falta de puntualidad a la entrada</option>
+          <!--  <option value="falta">Falta de puntualidad a la entrada</option>
           <option value="saab">Falta de asistencia</option>
-          
+          -->
 
         </select>
-        <form method="post" id="dates">
-    <label class="control-label" for="text">Selecciona las fechas para las guardias del usuario:</label>
+        <!--  <form method="post" id="dates">-->
+    <label class="control-label" for="text"><br>Selecciona las fechas para las guardias del usuario:</label>
     <div class="container_date">
       <div class="date datepicker3 container-calendar " id="newTratFechaInii">
         <input type="text" id="dates" value="" placeholder="CLIC AQUÍ Ó EN EL ICONO" required autocomplete="off"
-          class="dates">
+          class="dates" name="fechas">
         <span class="input-group-addon manito-clic iconc">
           <i class="glyphicon glyphicon-calendar"></i>
         </span>
       </div>
     </div>
 
-    <button type="button" name="clickea" onclick="validar ();"> clickea </button>
-
+    <!--  <button type="button" name="clickea" onclick="validar ();"> clickea </button>-->
+ <input type="submit" value="Agregar" class="button">
   </form>
+        <%
+        int cant = listUsu.size();
         
-        <button class="button">Agregar</button>
+        String i = request.getParameter("idperc");
+          String fechas = request.getParameter("fechas");
+          if(i!=null && fechas !=null){
+        	  out.println("id: "+i +"fechas: "+fechas);
+          }
+          
+          %>
+       
 
       </div>
     </section>

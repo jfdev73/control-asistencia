@@ -99,11 +99,21 @@ public class Usuario {
   private int id_percepciones;
   
   private byte[] bytes;
+  
+  private String puesto;
  
   
-  public Usuario() {}
-  
-  public Usuario(int status, int usuarios_asign_id, int usuario_id, int cargos_id, int nivel_cargo, int uni_id, int nick_id, String nombre, String ap_pat, String ap_mat, String descripcion_cargo, String clave_uni, String descripcion_uni, String nickuser, Date creado_en, Date modificado_en, String creado_por, String modificado_por, Boolean active_directory, Boolean cuenta_expirada, int elemento_autorizado_id, int elemento_id, int status_elemento, int perfil, String descripcion_elemento, Boolean visible, int sistema_id, int usuario_perfil_id, int status_sistema, String descripcion_sistema, String clave_servidor, int id_percepciones) {
+  public String getPuesto() {
+	return puesto;
+}
+
+public void setPuesto(String puesto) {
+	this.puesto = puesto;
+}
+
+public Usuario() {}
+
+  public Usuario(int status, int usuarios_asign_id, int usuario_id, int cargos_id, int nivel_cargo, int uni_id, int nick_id, String nombre, String ap_pat, String ap_mat, String descripcion_cargo, String clave_uni, String descripcion_uni, String nickuser, Date creado_en, Date modificado_en, String creado_por, String modificado_por, Boolean active_directory, Boolean cuenta_expirada, int elemento_autorizado_id, int elemento_id, int status_elemento, int perfil, String descripcion_elemento, Boolean visible, int sistema_id, int usuario_perfil_id, int status_sistema, String descripcion_sistema, String clave_servidor, int id_percepciones, String puesto) {
     this.status = status;
     this.usuarios_asign_id = usuarios_asign_id;
     this.usuario_id = usuario_id;
@@ -136,6 +146,7 @@ public class Usuario {
     this.descripcion_sistema = descripcion_sistema;
     this.clave_servidor = clave_servidor;
     this.id_percepciones= id_percepciones;
+    this.puesto=puesto;
   }
   
   public int getStatus_elemento() {
@@ -784,21 +795,23 @@ public class Usuario {
 	  //Usuario u = new Usuario();
 	  try {
 		    st = con.createStatement();
-		    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor,u.usuario_id, ucc.descripcion, uua.clave, uua.descripcion from \r\n"
+		    sql = "SELECT pu.per_us_id, (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor, ucc.descripcion, uua.clave, uua.descripcion from \r\n"
+		    		+ "inventario.percepciones_usuarios pu,\r\n"
 		    		+ "inventario.usuarios u , inventario.usuarios_asign ua, inventario.usuarios_c_cargos ucc, \r\n"
-		    		+ "inventario.usuarios_uni_admva uua where u.usuario_id = ua.usuarios_usuario_id and uua.uni_id="+id+"and \r\n"
-		    		+ "ucc.cargos_id = usuarios_c_cargos_cargos_id and ucc.unidad_admin = uua.uni_id and ua.status = 1 \r\n"
-		    		+ "--and u.claveservidor is not null\r\n"
-		    		+ "--and u.ap_pat != ' '\r\n"
+		    		+ "inventario.usuarios_uni_admva uua where u.usuario_id = ua.usuarios_usuario_id and uua.uni_id="+id+" and \r\n"
+		    		+ "ucc.cargos_id = usuarios_c_cargos_cargos_id and ucc.unidad_admin = uua.uni_id and ua.status = 1\r\n"
+		    		+ "and pu.usuario=u.usuario_id\r\n"
+		    		+ "and ucc.descripcion <> 'BECARIO'\r\n"
 		    		+ "and u.ap_pat <> '  '\r\n"
-		    		+ "and u.ap_mat != '  '\r\n"
-		    		+ "and ucc.descripcion <> 'BECARIO';";
+		    		+ "and u.ap_mat != '  ';";
 		    rs = st.executeQuery(sql);
 		    while (rs.next()) {
 		    	Usuario u = new Usuario();
-		    	u.setNombre(rs.getString(1));
-		        u.setClave_servidor(rs.getString(2));
-		        u.setUsuario_id(rs.getInt(3));
+		    	u.setId_percepciones(rs.getInt(1));
+		    	u.setNombre(rs.getString(2));
+		        u.setClave_servidor(rs.getString(3));
+		        //u.setUsuario_id(rs.getInt(4));
+		        u.setPuesto(rs.getString(4));
 		    	usuarios.add(u);
 		      
 		    	}
@@ -831,6 +844,52 @@ public class Usuario {
 	  
 	  
   }
+  
+  public static Usuario getDataV (int id) {
+	  Connection con = ConexionP.getConexion();
+	    Statement st = null;
+	    ResultSet res = null;
+	    String sql = "";
+	    Usuario u = null;
+	  //sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, claveservidor from inventario.usuarios u\r\n"
+	  		//+ "	where status =1 and usuario_id=35586;";
+	  try {
+		    st = con.createStatement();
+		    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre, u.claveservidor  from inventario.usuarios u where u.usuario_id="+id+";";
+		    res = st.executeQuery(sql);
+		    while (res.next()) {
+		      u = new Usuario();
+		      u.setNombre(res.getString(1));
+		      u.setClave_servidor(res.getString(2));
+		      //u.setNombre_titular(res.getString(2));
+		    	}
+		    }catch(SQLException e){
+		    	 e.printStackTrace();
+		    }
+		return u;
+  }
+  public static String getNomS(int id) {
+	  Connection con = ConexionP.getConexion();
+	    Statement st = null;
+	    ResultSet res = null;
+	    String sql = "";
+	    Usuario u = null;
+	    try {
+	    st = con.createStatement();
+	    sql = "SELECT (u.nombre||' '||u.ap_pat||' '||u.ap_mat) nombre from inventario.usuarios u\r\n"
+	    		+ "	where  u.usuario_id="+id+";";
+	    res = st.executeQuery(sql);
+	    while (res.next()) {
+	      u = new Usuario();
+	      u.setNombre(res.getString(1));
+	      //u.setNombre_titular(res.getString(2));
+	    	}
+	    }catch(SQLException e){
+	    	 e.printStackTrace();
+	    }
+	return u.getNombre();
 	  
+	  
+  }
   
 }

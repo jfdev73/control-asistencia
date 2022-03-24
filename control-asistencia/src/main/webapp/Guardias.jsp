@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@ page import = "java.util.ArrayList" %>
+    <%@ page import = "org.tesoreria.Guardias" %>
 <!DOCTYPE html>
 <html lang="en">
 <%if(session.getAttribute("theNickName")!=null){ %>
@@ -16,6 +18,8 @@
     <link rel="stylesheet" href="css/date.css">
   <link rel="stylesheet" href="css/guardias.css">
   <link rel="stylesheet" href="css/format.css">
+  <link rel="stylesheet" href="css/table.css">
+  <link rel="stylesheet" href="css/buttonStat.css">
   <title>Guardias</title>
   <%
   //response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
@@ -23,10 +27,48 @@
 </head>
 
 <body>
+ <% 
+  //ArrayList <Incidencias> incidenciasView = new ArrayList<Incidencias>();
+  ArrayList<Guardias> list = (ArrayList<Guardias>) request.getAttribute("listaformatos"); %>
 <jsp:include page="nav-admin.jsp"></jsp:include>
   <h1>Guardias</h1>
-  <p><button ><a href="nuevaGuardia.jsp?action=6">Nuevo Formato Guardias</a></button></p>
+  <p><button class="button_agregar"><a class="ancla" href="nuevaGuardia.jsp?action=6">Nuevo Formato Guardias</a></button></p>
   <main class="main">
+  <table width="90%" class="table_style">
+    <thead>
+    <tr> 
+    <td>Clave de Servidor</td>
+    <td>Nombre</td>
+    <td>Puesto</td>
+    <td>Fechas</td>
+    <!--  <td>Status</td>-->
+   
+    </tr>
+    </thead>
+    <tbody>
+    <%String  perfill =  (String) session.getAttribute("perfil");
+    if(perfill.equals("55")){
+    for (Guardias j:list){
+    	    	out.print("<tr>"
+    	    	+"<td>"+j.getClave_servidor()+"</td>"
+    	    	+"<td>"+j.getNombre()+"</td>"
+    	    	+"<td>"+j.getPuesto()+"</td>"
+    	        +"<td>"+j.getDias()+"</td>"+
+    	        "<td>"+"<button class='butt aceptado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+7+"&id="+j.getId_guardias()+'>'+"Editar"+"</a>"+"</button>"+"</td>"+
+        		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+8+"&id="+j.getId_guardias()+'>'+"Eliminar"+"</a>"+"</button>"+"</td>"+
+    	    			
+    	        //"<td>"+j.getNomS(j.getUsuario_id())+"</td>"+
+    	    			
+    	        //"<td>"+j.getNombre()+"</td>"+
+    	        //"<td>"+j.getCausa()+"</td>"+
+    	        //"<td>"+formatter.format(i.getFecha_justificacion())+"</td>"+
+    	        //"<td class='status'>"+i.getStatus()+"</td>"+
+    	        	//	"<td class='status'>"+i.getObservaciones()+"</td>"+
+    	        //out.print('<'+"option value="+u.getUsuario_id()+'>'+u.getNombre()+"</option>");
+    	        "</tr>");
+    	    	
+    	    }
+    }  %>
   </main>
     
 </body>

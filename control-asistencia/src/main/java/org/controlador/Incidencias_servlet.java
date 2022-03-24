@@ -1,5 +1,6 @@
 package org.controlador;
 
+import java.awt.image.BandCombineOp;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +48,7 @@ public class Incidencias_servlet extends HttpServlet {
 		try {
 			switch (action) {
 			case "6": {		
-				System.out.println("entrando a la opcion 6");
+				//System.out.println("entrando a la opcion 6");
 				try {
 					registrarIncidencia(request, response);
 				} catch (ParseException e) {
@@ -58,7 +59,7 @@ public class Incidencias_servlet extends HttpServlet {
 				
 			}
 			case "5":{
-				System.out.println("entrando a la opcion 5");
+				//System.out.println("entrando a la opcion 5");
 				mostrarIncidencias(request, response);
 				break;
 			}
@@ -66,6 +67,7 @@ public class Incidencias_servlet extends HttpServlet {
 			
 			case "7":{
 				actualizarIncidenias(request,response,7);
+				
 				break;
 			}
 			case "8":{
@@ -91,9 +93,11 @@ public class Incidencias_servlet extends HttpServlet {
 	
 	
 
-	private void actualizarIncidenias(HttpServletRequest request, HttpServletResponse response, int tipo) throws ParseException {
+	private void actualizarIncidenias(HttpServletRequest request, HttpServletResponse response, int tipo) throws ParseException, ServletException, IOException, SQLException {
 		
 		System.out.println("Entrando al metodo actualizar");
+		
+		
 		int id_justi = Integer.parseInt(request.getParameter("id"));
 		System.out.println("id inci: "+id_justi);
 		int status = 0;
@@ -103,13 +107,14 @@ public class Incidencias_servlet extends HttpServlet {
 			status=3;
 		}
 		Incidencias.actualizarStatus(id_justi,status);
+		mostrarIncidencias(request, response);
 		// TODO Auto-generated method stub
 		
 	}
 
 	private void mostrarIncidencias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("entrando al metodo");
+		//System.out.println("entrando al metodo");
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/Incidencias.jsp");
 		ArrayList<Incidencias> inci;
 		HttpSession session = request.getSession(true);
@@ -154,109 +159,121 @@ public class Incidencias_servlet extends HttpServlet {
 
 		
 		
-		
-		
-		
-		/*
-		
-		
-		
-		
-		String date_just = request.getParameter("date_just");
-		System.out.println("fecha: "+date_just);
-		String h_inicio = request.getParameter("h_inicio");
-		System.out.println("fecha: "+h_inicio);
-		String h_final = request.getParameter("h_final");
-		System.out.println("h_final: "+h_final);
-		
-		 String date_d= request.getParameter("dated");
-		System.out.println("fecha tipo dia: "+date_d);
-		System.out.println("date: "+formatter.format(date_d));
-		
-		datep_inicio= request.getParameter("datep_inicio");
-		System.out.println("fecha_periodo_inicio: " +datep_inicio);
-		
-		 datep_final= request.getParameter("datep_final");
-		System.out.println("fecha_periodo_final: "+datep_final);
-		String tipo_causa= request.getParameter("tipo_causa");
-		System.out.println("tipo_causa: "+tipo_causa);
-		String causa= request.getParameter("causa");
-		System.out.println("causa: "+causa);
-		
-		String archivo = request.getParameter("archivo");
-		System.out.println("archivo: "+archivo);
-		
-		
-		
-		if(datep_inicio.equals("")) {
-			System.out.println("datep inicio esta vacio");
-			
-		}else {
-			System.out.println("No es nulo");
-		}*/
-		
 	}
 
-	private void registrarIncidencia(HttpServletRequest request, HttpServletResponse response) throws ParseException {
+	private void registrarIncidencia(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Entrando al metodo de registro \n");
 		
-		
-		String datep_inicio = null;
-		String datep_final= null;
+		boolean b=false;
+		Date date_js=null, dateD=null,dateP_inicio=null, dateP_final=null;
+		int error=0;
+		int causa=0,tipo_causa=0;
+		String datep_inicio = "";
+		String datep_final= "";
+		String tc = "";
+		String c="";
 		
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		Incidencias in = new Incidencias();
 		
+	
 		String date_just = request.getParameter("date_just");
+		if(date_just.isEmpty() || date_just.equals(null)) {
+			
+			error=1;
+			request.setAttribute("errorjust", error);
+			
+		}else {
 		System.out.println("fecha justificacion: "+date_just);
-		Date date_js, dateD=null,dateP_inicio=null, dateP_final=null;
+		
 		java.util.Date util = formatter.parse(date_just);
 		date_js = new java.sql.Date(util.getTime());
+		}
 		
-
+		
 		String h_inicio = request.getParameter("h_inicio");
-		System.out.println("hora inicio: "+h_inicio);
+		
 		String h_final = request.getParameter("h_final");
-		System.out.println("hora final : "+h_final);
+		
+		if(h_inicio.isEmpty() || h_final.isEmpty()) {
+			error = 2;
+			request.setAttribute("errorjust", error);
+			
+		}else {
+			System.out.println("hora inicio: "+h_inicio);
+			System.out.println("hora final : "+h_final);
+		}
 		
 		 String date_d= request.getParameter("dated");
-		 if((date_d.isEmpty()) || date_d.equals(null) ) {
-			 
-			 System.out.println("No se selecciono fecha por dia");
-			 
-			 
-		 }else {
-			java.util.Date dated = formatter.parse(date_d);
-			dateD = new java.sql.Date(dated.getTime());
-		 System.out.println("fecha tipo dia: "+dateD);
+		 datep_inicio= request.getParameter("datep_inicio");
+		 datep_final= request.getParameter("datep_final");
+		 
+		 if(date_d.isEmpty()) {
+			 if((datep_inicio.isEmpty()) || (datep_final.isEmpty()) || datep_inicio.equals(null) || datep_final.equals(null) ) {
+			error=3;
+			request.setAttribute("errorjust", error);
 		 }
-		 
-		 
-
-		datep_inicio= request.getParameter("datep_inicio");
-		datep_final= request.getParameter("datep_final");
+	}else {
+	java.util.Date dated = formatter.parse(date_d);
+	dateD = new java.sql.Date(dated.getTime());
+	 System.out.println("fecha tipo dia: "+dateD);
+		
+	}
+		
 		if((datep_inicio.isEmpty()) || (datep_final.isEmpty()) || datep_inicio.equals(null) || datep_final.equals(null) ) {
-			System.out.println("Las fechas tipo periodo no se seleccionarion");
-		}else {
-			java.util.Date datepi = formatter.parse(datep_inicio);
-			dateP_inicio = new java.sql.Date(datepi.getTime());
-		 System.out.println("fecha periodo inicio: "+dateP_inicio);
-		 
-		 java.util.Date datepf = formatter.parse(datep_final);
-			dateP_final = new java.sql.Date(datepf.getTime());
-		 System.out.println("fecha tipo final: "+dateP_final);
 			
-		}
+			if(date_d.isEmpty()) {
+			error=3;	
+			request.setAttribute("errorjust", error);
+				}
+			}else {
+				 java.util.Date datepi = formatter.parse(datep_inicio);
+					dateP_inicio = new java.sql.Date(datepi.getTime());
+				 System.out.println("fecha periodo inicio: "+dateP_inicio);
+				 java.util.Date datepf = formatter.parse(datep_final);
+					dateP_final = new java.sql.Date(datepf.getTime());
+				 System.out.println("fecha tipo final: "+dateP_final);
+			}
+			
+		
+			
+			
+		
 		
 		//java.util.Date dateeP_inicio = formatter.parse(datep_inicio);
 		//dateP_inicio = new java.sql.Date(dateeP_inicio.getTime());
 		//System.out.println("fecha tipo dia: "+dateD);
 		
-		int tipo_causa = Integer.parseInt(request.getParameter("tipo_causa"));
-		System.out.println("tipo_causa: "+tipo_causa);
-		int causa= Integer.parseInt(request.getParameter("causa"));
-		System.out.println("causa: "+causa);
+		tc = request.getParameter("tipo_causa");
+		System.out.println("tipoo causa:"+tc);
+		if(tc==null) {error=5;}
+		if(tc!=null) {
+		if(tc.equals("7")  || tc.isEmpty()) {
+			error=5;
+			request.setAttribute("errorjust", error);
+			
+		}else {
+			tipo_causa = Integer.parseInt(tc);
+			System.out.println("tipo_causa: "+tipo_causa);
+		}
+			}
+		
+		
+		 c = request.getParameter("causa");
+		 System.out.println("caaausa: "+c);
+		 if(c==null) {error=6;}
+		 if(c!=null) {
+		if(c.isEmpty() || c.equals("a")) {
+			error=6;
+			request.setAttribute("errorjust", error);
+		}else{
+			 causa= Integer.parseInt(c);
+			System.out.println("causa: "+causa);
+			
+		}
+		 }
+		
 		HttpSession session = request.getSession(true);
 		int id_delegado = (int) session.getAttribute("id_delegado");
 		System.out.println("id del dele: "+id_delegado);
@@ -266,10 +283,19 @@ public class Incidencias_servlet extends HttpServlet {
 		System.out.println("id_peer: "+id_usuario);
 		//String archivo = request.getParameter("archivo");
 		//System.out.println("archivo: "+archivo);
+		if(error==0) {
+		 b = Incidencias.InsertarIncidencias(id_usuario,date_js, h_inicio, h_final, dateD, dateP_inicio, dateP_final, tipo_causa, causa, id_titular, id_delegado);
+			System.out.println("valor de b: "+b);
+		}
 		
-		boolean b = Incidencias.InsertarIncidencias(id_usuario,date_js, h_inicio, h_final, dateD, dateP_inicio, dateP_final, tipo_causa, causa, id_titular, id_delegado);
+		if(b) {
+			request.setAttribute("mensaje", "Se agrego con exito");
+			
+			
+		}
 		//System.out.println("Valor de band: "+b);
-		
+		//response.sendRedirect("nuevaIncidencia.jsp");
+		request.getRequestDispatcher("nuevaIncidencia.jsp").forward(request, response);
 	}
 
 }

@@ -1,0 +1,23 @@
+@charset "ISO-8859-1";
+
+.alertac{
+	
+	background: #F73E1D;
+	width:50%;
+	padding:15px;
+	text-align: left;
+	margin:30px auto;
+	font-family:sans-serif;
+	font-weight:bold;
+	color:#FCD3CC;
+	border-radius: 3px;
+}
+
+.msj{
+	margin: 15px auto;
+	padding:10px;
+	background:#f75346;
+	color:whie;
+	text-align: center;
+	border-radius: 3px;
+}

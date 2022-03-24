@@ -72,7 +72,7 @@ public class login extends HttpServlet {
 
 		String tEnc = DigestUtils.md5Hex(passw0rd);
 		String prueba = DigestUtils.md5Hex("Acceso2022");
-		System.out.println("ejemplo de con: " + prueba);
+		//System.out.println("ejemplo de con: " + prueba);
 		System.out.println("Texto Encriptado con M5 : " + tEnc);
 		System.out.println("");
 
@@ -188,15 +188,15 @@ public class login extends HttpServlet {
 						// System.out.println("Valor de sesion: " + session);
 						session.setMaxInactiveInterval(60 * 60); //// Sesion de 60 minutos
 						String nick = us.getNickuser();
-						System.out.println("nick:" + nick);
+						//System.out.println("nick:" + nick);
 						int ua = us.getUni_id();
 						session.setAttribute("id_uni_adm", ua);
-						System.out.println("unidad:" + ua);
+						//System.out.println("unidad:" + ua);
 						int upid = us.getUsuario_id();
 						session.setAttribute("id_usuario", upid);
 						Usuario u =  Usuario.getClaveS(upid);
 						String claveSer = u.getClave_servidor();
-						System.out.println("Clave de servidor: "+claveSer);
+						//System.out.println("Clave de servidor: "+claveSer);
 						session.setAttribute("claveservidor", claveSer);
 						
 						/*ArrayList<Usuario> lusus;
@@ -213,7 +213,7 @@ public class login extends HttpServlet {
 						}*/
 						
 						
-						System.out.println("id_percepciones");
+						//System.out.println("id_percepciones");
 						//Usuario t =  Titulares.getTitulares(ua);
 						int i = us.getUsuario_id();
 						System.out.println("id: "+i);
@@ -222,24 +222,24 @@ public class login extends HttpServlet {
 						 
 						 int uper = uj.getId_percepciones();
 						 session.setAttribute("idpercep", uper);
-						System.out.println("percep: "+uper);
+						//System.out.println("percep: "+uper);
 						
 						String unidad = us.getDescripcion_uni();
-						System.out.println("unidad:" + unidad);
+						//System.out.println("unidad:" + unidad);
 						session.setAttribute("unidad", unidad);
 						Titulares t =  Titulares.getTitulares(ua);
 						
 						Titulares d = Titulares.getDelegado();
 						int id_titular = t.getId_titular();
 						session.setAttribute("id_titular", id_titular);
-						System.out.println("id_titular"+id_titular);
+						//System.out.println("id_titular"+id_titular);
 						int id_delegado = d.getId_encargado_delegacion();
 						session.setAttribute("id_delegado", id_delegado);
-						System.out.println("id_delegado: "+id_delegado);
+						//System.out.println("id_delegado: "+id_delegado);
 						String nombre_titular = t.getNombre_titular();
 						String nombre_delegado = d.getNom_delegacion();
-						System.out.println("nombre de titular: "+nombre_titular);
-						System.out.println("nombre de delegado: "+nombre_delegado);
+						//System.out.println("nombre de titular: "+nombre_titular);
+						//System.out.println("nombre de delegado: "+nombre_delegado);
 						
 						//session.setAttribute("nombret", nombre_titular);
 						
