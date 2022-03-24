@@ -179,6 +179,7 @@ public class Guardias_servlet extends HttpServlet {
 	    	System.out.println("idp: "+p.getId_periodo());
 	    	System.out.println("fecha_inicio: "+p.getFecha_inicio());
 	    	System.out.println("fecha_fin: "+p.getFecha_fin());
+	    	//System.out.println("fecha_fin: "+p.getFecha_fin());
 	    	
 	    }
 		/*HttpSession session = request.getSession(true);
