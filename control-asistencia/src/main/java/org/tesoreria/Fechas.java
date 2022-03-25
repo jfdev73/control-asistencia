@@ -52,7 +52,7 @@ public class Fechas {
 		LocalDate hoy = LocalDate.now();
 		LocalDate d = LocalDate.parse("2021-04-12");
 		//System.out.println("diaaa: "+d);
-		String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
+		//String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
 		//System.out.println("prueba: "+ddd);
 		//d = d.plusDays(1);
 		
@@ -60,13 +60,52 @@ public class Fechas {
         //Period periodo = Period.ofDays(1);
         ArrayList<String> cad = new ArrayList<String>();
        for(int ii = 0;ii<5;ii++) {
-    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
+    	   //cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
+    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     	   
     	   //fechas.add(f);
        }
        
        
        System.out.println(cad);
+       ArrayList<String> vacaciones= new ArrayList<String>();
+       ArrayList<String> guardias= new ArrayList<String>();
+       String v="";
+       String g ="";
+       
+       String fechasEjemplo = "12/04/2021,13/04/2021";
+		//System.out.println("fechasejemplo: "+fechasEjemplo);
+		String[] arrayOfInts = fechasEjemplo.split(",");
+		boolean diav = true;
+        for (int k=0 ; k <cad.size();k++) {
+     	   boolean esGuardia = true;
+     	   for (int j=0 ; j <arrayOfInts.length;j++) {
+     		   //System.out.println("valor" + arrayOfInts[j]);
+     		   if (arrayOfInts[j].equals(cad.get(k))) {
+     			   System.out.println("vaciones " + arrayOfInts[j]);
+     			   vacaciones.add(arrayOfInts[j]);
+     			   esGuardia = false;
+     			   v += arrayOfInts[j] + "," ;
+     		   }else {
+     			   diav = false;
+     			  
+     		   }
+     		   
+     	   }
+     	   if (esGuardia) {
+     	   System.out.println("guardia " + cad.get(k));
+     	   guardias.add(cad.get(k));
+     	   g += cad.get(k) + ",";
+     	   }
+     	   
+        }
+        if(diav==false) {
+  		   System.out.println("No corresponden los dias al periodo");
+  		   
+  	   }
+        System.out.println(v);
+        System.out.println(g);
+        
        /*
       for(Fechas fe:fechas) {
     	   System.out.println("fech: "+fe.getDayss());

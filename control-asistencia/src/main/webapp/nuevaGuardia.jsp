@@ -19,8 +19,9 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.2/css/bootstrapValidator.min.css"
     rel="stylesheet" >
     <link rel="stylesheet" href="css/date.css">
-  <link rel="stylesheet" href="css/guardias.css">
+      <link rel="stylesheet" href="css/guardias.css">
   <link rel="stylesheet" href="css/format.css">
+  <link rel="stylesheet" href="css/alerta.css">
   <title>Guardias</title>
   <%
   response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
@@ -31,7 +32,20 @@
 <jsp:include page="nav-admin.jsp"></jsp:include>
   <h1>Guardias</h1>
   <main class="main">
+  
     <section class="main__contanier container">
+    <%Object exis = request.getAttribute("existe");
+      Object inser = request.getAttribute("insertado");
+  if(exis!=null){
+  boolean existe = Boolean.valueOf(exis.toString()); 
+  out.println("<p class='msj guardiamsj'>"+"!Error: El usuario seleccionado, ya esta agregado!"+"</p>");
+  }else if(inser!=null){
+	  boolean insertado = Boolean.valueOf(inser.toString());
+	  if(insertado)
+	out.println("<p class='msjok guardiamsj'>"+"!Usuario agregado con exio!"+"</p>");
+	  
+  }
+  %>
      <!--  <b for="" class="label__read">Dirección: </b><span class="servidor_publico">juan fernando
         miranda
         monroy</span> <br>
@@ -67,7 +81,7 @@
     	  out.print("<option>"+p.getPeriodo()+" PERIODO "+p.getEtapa()+" ETAPA");
       }%>
       </select>
-        <h2>Relación de servidores públicos que cubriran guardia</h2>
+        <h2 class="subtittle">Relación de servidores públicos que cubriran guardia</h2>
         <form method="post" id="dates" action="Guardias_servlet?accion=6">
         
         <select name="usuariosl" id="autorizacion">

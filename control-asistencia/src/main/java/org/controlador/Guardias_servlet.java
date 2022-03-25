@@ -3,6 +3,8 @@ package org.controlador;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
@@ -94,9 +96,18 @@ public class Guardias_servlet extends HttpServlet {
 		
 	}
 
-	private void eliminarGuardias(HttpServletRequest request, HttpServletResponse response) {
+	private void eliminarGuardias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Entrando al metodo eliminar");
+		int id= Integer.parseInt(request.getParameter("id"));
+		boolean good = Guardias.deleteGuardia(id);
+		//System.out.println("la eliminacion fue :"+good);
+		//RequestDispatcher dispatcher = request.getRequestDispatcher("/Guardias.jsp");
+		//dispatcher.forward(request, response);
+		if(good) {
+			response.sendRedirect("Guardias_servlet?accion=5");
+			//MostrarGuardias(request, response);
+		}
 	}
 
 	
@@ -119,16 +130,83 @@ public class Guardias_servlet extends HttpServlet {
 		int id = Integer.parseInt(id_perc);
 		System.out.println("id seleccionado:"+id_perc);
 		String fechas = request.getParameter("fechas");
-		String [] vectF = fechas.split(",");
-		System.out.println(vectF);
+		//String [] vectF = fechas.split(",");
+		//System.out.println(vectF);
 		int u = (int)session.getAttribute("id_uni_adm");
 		//request.setAttribute("fechas",fechas);
 		System.out.println("fechas seleccionada:"+fechas);
-		System.out.println("fecha1: "+vectF[0]);
-		System.out.println("fecha2: "+vectF[1]);
+		boolean exist = Guardias.getGuardia(id);
+		if(exist) {
+			System.out.println("El usuario ya existe");
+			request.setAttribute("existe",exist);
+			
+		}else {
+			
+			boolean insertado = Guardias.insertarGuardia(id, fechas, u);
+			if(insertado) {
+				request.setAttribute("insertado", insertado);
+				getVacaciones(fechas);
+			}
+			
+		}
+		//System.out.println("fecha1: "+vectF[0]);
+		//System.out.println("fecha2: "+vectF[1]);
 		//band = Guardias.insertarGuardia(id, fechas,u );
 		//System.out.println("valor de b: "+band);
 		dispatcher.forward(request, response);
+	}
+
+	private void getVacaciones(String gd) {
+		LocalDate d = LocalDate.parse("2021-04-12");
+		//System.out.println("diaaa: "+d);
+		//String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
+		//System.out.println("prueba: "+ddd);
+		//d = d.plusDays(1);
+		
+		//System.out.println("fecha add: "+d);
+        //Period periodo = Period.ofDays(1);
+        ArrayList<String> cad = new ArrayList<String>();
+       for(int ii = 0;ii<5;ii++) {
+    	   //cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
+    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+    	   
+    	   //fechas.add(f);
+       }
+       
+       
+       System.out.println(cad);
+       ArrayList<String> vacaciones= new ArrayList<String>();
+       ArrayList<String> guardias= new ArrayList<String>();
+       String v="";
+       String guob ="";
+       
+       //String fechasEjemplo = "12/04/2021,13/04/2021";
+       String fechasEjemplo = gd;
+		System.out.println("fechasejemplo: "+fechasEjemplo);
+		String[] arrayOfInts = fechasEjemplo.split(",");
+        for (int k=0 ; k <cad.size();k++) {
+     	   boolean esGuardia = true;
+     	   for (int j=0 ; j <arrayOfInts.length;j++) {
+     		   //System.out.println("valor" + arrayOfInts[j]);
+     		   if (arrayOfInts[j].equals(cad.get(k))) {
+     			   System.out.println("vaciones " + arrayOfInts[j]);
+     			   vacaciones.add(arrayOfInts[j]);
+     			   esGuardia = false;
+     			   v += arrayOfInts[j] + "," ;
+     		   }
+     		   
+     	   }
+     	   if (esGuardia) {
+     	   System.out.println("guardia " + cad.get(k));
+     	   guardias.add(cad.get(k));
+     	   guob += cad.get(k) + ",";
+     	   }
+     	   
+        }
+        System.out.println(v);
+        System.out.println(guob);
+        
+		
 	}
 
 	private void mostrarUsuariosGuardias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -166,22 +244,21 @@ public class Guardias_servlet extends HttpServlet {
 		System.out.println("valooor: "+prueba);
 		String  perfill =  (String) session.getAttribute("perfil");
 	    listg = Guardias.mostrarGuardias(prueba, perfill,iduni);
-	    for(Guardias gu:listg) {
+	    /*for(Guardias gu:listg) {
 	    	System.out.println("Nombre del o dela: "+gu.getNombre());
 	    	System.out.println("holaaa:"+gu.getPuesto());
 	    	System.out.println("dias de guardias: "+gu.getDias());
 	    	
-	    }
+	    }*/
 	    ArrayList<Periodo> period;
 	    period = Periodo.getPeriodos();
-	    
-	    for(Periodo p:period) {
+	    /*for(Periodo p:period) {
 	    	System.out.println("idp: "+p.getId_periodo());
 	    	System.out.println("fecha_inicio: "+p.getFecha_inicio());
 	    	System.out.println("fecha_fin: "+p.getFecha_fin());
 	    	//System.out.println("fecha_fin: "+p.getFecha_fin());
 	    	
-	    }
+	    }*/
 		/*HttpSession session = request.getSession(true);
 		int id_unidad = (int) session.getAttribute("id_uni_adm");
 		

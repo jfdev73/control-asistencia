@@ -55,7 +55,7 @@
     	    	+"<td>"+j.getPuesto()+"</td>"
     	        +"<td>"+j.getDias()+"</td>"+
     	        "<td>"+"<button class='butt aceptado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+7+"&id="+j.getId_guardias()+'>'+"Editar"+"</a>"+"</button>"+"</td>"+
-        		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+8+"&id="+j.getId_guardias()+'>'+"Eliminar"+"</a>"+"</button>"+"</td>"+
+        		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+8+"&id="+j.getId_percepciones()+'>'+"Eliminar"+"</a>"+"</button>"+"</td>"+
     	    			
     	        //"<td>"+j.getNomS(j.getUsuario_id())+"</td>"+
     	    			
