@@ -1,18 +1,78 @@
 package org.tesoreria;
 
-import java.sql.Date;
+import java.util.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 public class Fechas {
+	private LocalDate dias;
+	private String dayss;
+	public String getDayss() {
+		return dayss;
+	}
+	public void setDayss(String dayss) {
+		this.dayss = dayss;
+	}
+	public LocalDate getDias() {
+		return dias;
+	}
+	public void setDias(LocalDate dias) {
+		this.dias = dias;
+	}
 	public static void main(String[] args) throws ParseException {
 		//12/04/2021' '16/04/2021'
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat format2 = new SimpleDateFormat("EEEE yyyy/MM/dd");
 		//Date firstDate = format.parse("30/07/1992");
-		Date fecha_inicio = (Date) format.parse("12/04/2021");
-		System.out.println("fecha inicio: "+ fecha_inicio);
+		String fi = "12/04/2021";
+		java.util.Date dated = format.parse(fi);
+		//System.out.println("fecha antes: "+ format.format(dated));
+	/* Calendar c = Calendar.getInstance();
+        c.setTime(dt);
+        c.add(Calendar.DATE, 1);
+        dt = c.getTime();
+        System.out.println("Tomorrow: "+dt);*/
+		/* LocalDateTime today = LocalDateTime.now();     //Today
+        LocalDateTime tomorrow = today.plusDays(1);     //Plus 1 day
+        LocalDateTime yesterday = today.minusDays(1);   //Minus 1 day
+        System.out.println("Today:     "+today);          
+        System.out.println("Tomorrow:  "+tomorrow);      
+        System.out.println("Yesterday: "+yesterday);*/
+		int i = 0;
+	
+		//Localtime d1 = dated;
+		//
+		LocalDate hoy = LocalDate.now();
+		LocalDate d = LocalDate.parse("2021-04-12");
+		//System.out.println("diaaa: "+d);
+		String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
+		//System.out.println("prueba: "+ddd);
+		//d = d.plusDays(1);
+		
+		//System.out.println("fecha add: "+d);
+        //Period periodo = Period.ofDays(1);
+        ArrayList<String> cad = new ArrayList<String>();
+       for(int ii = 0;ii<5;ii++) {
+    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
+    	   
+    	   //fechas.add(f);
+       }
+       
+       
+       System.out.println(cad);
+       /*
+      for(Fechas fe:fechas) {
+    	   System.out.println("fech: "+fe.getDayss());
+    	   
+       }*/
+        
 		/*
         String periodo[] ={"1","2","3","4", "5", "6","7","8","9","10"};
         String p = Arrays.toString(periodo);
