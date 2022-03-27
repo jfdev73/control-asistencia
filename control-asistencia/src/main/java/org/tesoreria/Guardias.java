@@ -52,7 +52,7 @@ public Guardias(int id, String fechas) {
 }
 
 
-public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int unidad) throws SQLException {
+public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int unidad, int periodo) throws SQLException {
 	String sql = "";
 	boolean bandera = false;
 	Statement st = null;
@@ -68,12 +68,12 @@ public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int un
     	st = con.createStatement();
     	if(perfil.equals("53")) {
     		sql="SELECT  justificacion_id, folio, tipo_causa, causa,fecha_justificacion , status, observaciones\r\n"
-					+ "	FROM inventario.justificacion WHERE status=1;";
+					+ "	FROM inventario.justificacion WHERE status=1 and periodo="+periodo+";";
     	}else if(perfil.equals("54") || perfil.equals("55")) {
     	sql="SELECT gu.usuario_id, gu.id_guardias, gu.unidad, pu.desc_puesto,gu.dias,u.nombre, u.claveservidor\r\n"
     			+ "from inventario.guardias gu inner join inventario.percepciones_usuarios pu\r\n"
     			+ "on gu.usuario_id = pu.per_us_id \r\n"
-    			+ "inner join inventario.usuarios u on pu.usuario=u.usuario_id where pu.status = 1 and unidad="+unidad+";";
+    			+ "inner join inventario.usuarios u on pu.usuario=u.usuario_id where pu.status = 1 and unidad="+unidad+"and periodo="+periodo+";";
     	}
     	rs = st.executeQuery(sql);
 	    String ejemplo = "2020-05-16";
@@ -93,12 +93,12 @@ public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int un
 	    }catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
-  
+  con.close();
   return g;
 }
 
 
-public static boolean insertarGuardia(int id_usuario,String dias, int unidad, int idperiodo, int cantdias) throws ParseException {
+public static boolean insertarGuardia(int id_usuario,String dias, int unidad, int idperiodo, int cantdias) throws ParseException, SQLException {
 	boolean bandera = false;
 	
 	Incidencias in = new Incidencias();
@@ -107,22 +107,24 @@ public static boolean insertarGuardia(int id_usuario,String dias, int unidad, in
     String sql = "";
     
     try {
-    	 PreparedStatement ps = con.prepareStatement("INSERT INTO inventario.guardias(usuario_id, dias, unidad) VALUES (?, ?, ?);");
+    	 PreparedStatement ps = con.prepareStatement("INSERT INTO inventario.guardias(usuario_id, dias, unidad,periodo, cant_dias) VALUES (?, ?, ?,?,?);");
     	 
     	 ps.setInt(1, id_usuario);
     	 ps.setString(2, dias);
     	 ps.setInt(3,unidad);
+    	 ps.setInt(4, idperiodo);
+    	 ps.setInt(5, cantdias);
     	 
           ps.executeUpdate();
          bandera= true;
 	} catch(SQLException e){
     	 e.printStackTrace();
     }
-
+    con.close();
 	return bandera;
 }
 
-public static boolean getGuardia(int id_usr) {
+public static boolean getGuardia(int id_usr, int periodo_id) throws SQLException {
 	boolean existe = false;
 	Connection con = ConexionP.getConexion();
     Statement st = null;
@@ -130,7 +132,7 @@ public static boolean getGuardia(int id_usr) {
     String sql = "";
     try {
         st = con.createStatement();
-        sql = "select usuario_id from inventario.guardias where usuario_id ="+id_usr+";";
+        sql = "select usuario_id from inventario.guardias where usuario_id ="+id_usr+"and periodo ="+periodo_id+";";
         res = st.executeQuery(sql);
         if (res.next())
           existe = true; 
@@ -148,10 +150,11 @@ public static boolean getGuardia(int id_usr) {
           e.printStackTrace();
         } 
       } 
+    con.close();
 	return existe;
 }
 
-public static boolean deleteGuardia(int id_usr) throws ParseException {
+public static boolean deleteGuardia(int id_usr) throws ParseException, SQLException {
 	boolean bandera = false;
 	
 	Connection con = ConexionP.getConexion();
@@ -163,7 +166,7 @@ public static boolean deleteGuardia(int id_usr) throws ParseException {
 	} catch(SQLException e){
     	 e.printStackTrace();
     }
-
+    con.close();
 	return bandera;
 	}
 }

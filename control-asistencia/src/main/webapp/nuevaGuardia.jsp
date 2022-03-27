@@ -84,7 +84,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
 				listPeriodo = Periodo.getPeriodos();
 				%>
 				<div class="relacion">
-					<form action="Guardias_servlet?accion=6" method="post">
+					<form action="Guardias_servlet?accion=11" method="post">
 
 						<select name="periodos">
 							<%
@@ -99,13 +99,14 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
 						<input type="submit" value="Aceptar"> <br></form>
 						<%
 						Object p = request.getAttribute("periodo");
-						out.println("valor default: " + p);
+						//out.println("valor default: " + p);
 						String fechaInicio = "";
 						String fechaFinal = "";
+						int p2 = 0;
 
 						if (p != null) {
 
-							int p2 = Integer.parseInt(request.getAttribute("periodo").toString());
+							 p2 = Integer.parseInt(request.getAttribute("periodo").toString());
 							out.println("Valor de p: " + p);
 							Periodo perv = Periodo.getPeriodo(p2);
 
@@ -128,7 +129,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
 								%>
 
 							</select>
-							<form method="post" id="dates">
+							<input type="hidden" value="<%=p2%>" name="idpe">
 								<label class="control-label" for="text"><br>Selecciona
 									las fechas para las guardias del usuario:</label>
 								<div class="container_date">
@@ -145,7 +146,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
 
 
 								<input type="submit" value="Agregar" class="button">
-							</form>
+							
 
 							<%
 							}

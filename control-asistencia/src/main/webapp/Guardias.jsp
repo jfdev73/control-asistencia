@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-    <%@ page import = "java.util.ArrayList" %>
-    <%@ page import = "org.tesoreria.Guardias" %>
+<%@ page import = "java.util.ArrayList" %>
+<%@ page import = "org.tesoreria.Guardias" %>
+<%@ page import="conexion.Usuario"%>
+<%@ page import="org.tesoreria.Periodo"%>
 <!DOCTYPE html>
 <html lang="en">
 <%if(session.getAttribute("theNickName")!=null){ %>
@@ -32,7 +34,20 @@
   ArrayList<Guardias> list = (ArrayList<Guardias>) request.getAttribute("listaformatos"); %>
 <jsp:include page="nav-admin.jsp"></jsp:include>
   <h1>Guardias</h1>
-  <p><button class="button_agregar"><a class="ancla" href="nuevaGuardia.jsp?action=6">Nuevo Formato Guardias</a></button></p>
+  
+  <%ArrayList<Periodo> listPeriodo; 
+  listPeriodo = Periodo.getPeriodos();
+  
+  
+  %>
+  <button class="button_agregar"><a class="ancla" href="nuevaGuardia.jsp?action=6">Nuevo Formato Guardias</a></button>
+  <%for (Periodo p : listPeriodo) {
+		//out.print('<'+"option value="+u.getId_percepciones()+'>'+u.getNombre()+"</option>");
+		out.print('<' + "button class='button_agregar' value=" + p.getId_periodo() + '>' +
+		'<'+"a class='ancla'" +"href="+"Guardias_servlet?accion=12&p="+p.getId_periodo()+'>'+ p.getPeriodo() + "  PERIODO  " + p.getEtapa() + " ETAPA"
+		+ "</a>"+"</button>");
+		//out.print('<'+"option value="+p.getId_periodo()+'>'+p.getPeriodo()+" PERIODO "+p.getEtapa()+" ETAPA"+"</option");
+	} %>
   <main class="main">
   <table width="90%" class="table_style">
     <thead>
@@ -48,6 +63,7 @@
     <tbody>
     <%String  perfill =  (String) session.getAttribute("perfil");
     if(perfill.equals("55")){
+    	if(list!=null){
     for (Guardias j:list){
     	    	out.print("<tr>"
     	    	+"<td>"+j.getClave_servidor()+"</td>"
@@ -68,6 +84,7 @@
     	        "</tr>");
     	    	
     	    }
+    	}
     }  %>
   </main>
     

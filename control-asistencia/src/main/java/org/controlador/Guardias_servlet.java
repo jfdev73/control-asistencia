@@ -91,6 +91,11 @@ public class Guardias_servlet extends HttpServlet {
 			mostrarUsuariosGuardias(request, response);
 			break;
 		}
+		case "12":{
+			System.out.println("Entrando al metodo 12");
+			MostrarGuardias(request, response);
+			break;
+		}
 		default:
 		}
 			} catch (SQLException e) {
@@ -106,12 +111,25 @@ public class Guardias_servlet extends HttpServlet {
 		
 	}
 
-	private void registroPeriodo(HttpServletRequest request, HttpServletResponse response) {
+	private void registroPeriodo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Entrando al metodo registrar");
-		//String pe = request.getAttribute("periodos");
-		int idperiodo =  Integer.parseInt(request.getParameter("periodos"));
-		System.out.println("Periodo seleccionado: "+idperiodo);
+		String pe = request.getParameter("periodos");
+		int idperiodo = 0;
+		HttpSession session = request.getSession(true);
+		if(pe!=null) {
+			 idperiodo =  Integer.parseInt(pe);
+		}
+		
+		if(idperiodo!=0) {
+			session.setAttribute("idp", idperiodo);
+			request.setAttribute("periodo", idperiodo);
+			
+		}
+		System.out.println("Valor del periodo: "+idperiodo);
+		
+		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
+		dispatcher.forward(request, response);
 		
 	}
 
@@ -138,58 +156,63 @@ public class Guardias_servlet extends HttpServlet {
 		request.setAttribute("id_guar", id_g);
 	}
 
-	private void insertarGuardia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
+	private void insertarGuardia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException, SQLException {
 		// TODO Auto-generated method stub
-		System.out.println("Entrando al metodo registrar peri");
-		//String pe = request.getAttribute("periodos");
-		String idp2 = request.getParameter("periodos");
+		System.out.println("Entrando al metodo registrar guardias");
 		int idperiodo = 0;
-		if(idp2 != null) {
-		 idperiodo =  Integer.parseInt(request.getParameter("periodos"));
-		}
-		
-		
-		if(idperiodo!=0) {
-		boolean periodoSelec =true;
-		System.out.println("valor de periodo_boolean: "+periodoSelec);
-		request.setAttribute("periodo", idperiodo);
-		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
-		dispatcher.forward(request, response);
-		System.out.println("Periodo seleccionado: "+idperiodo);
-		boolean band = false;
-		 
+		int id = 0;
+		int value=0;
+		String[] fechas1 = null;
+		int cant =0;
 		HttpSession session = request.getSession(true);
-		System.out.println("Etrando al metodo insertar");
 		
+		session.getAttribute("idp");
+		Object p = session.getAttribute("idp");
+		if(p!=null) {
+			idperiodo = Integer.parseInt(p.toString());
+		}
+		System.out.println("Valor de idpeirodo: "+idperiodo);
+			
 		String id_perc = request.getParameter("usuariosl");
 		//request.setAttribute("idper",id_perc);
-		int id = Integer.parseInt(id_perc);
+		if(id_perc !=null) {
+			 id = Integer.parseInt(id_perc);	
+		}
+		
 		System.out.println("id seleccionado:"+id_perc);
 		String fechas = request.getParameter("fechas");
-		String[] fechas1 = fechas.split(",");
-		int cant = fechas1.length;
-		System.out.println("cantidad de dias tomados: "+ fechas1);
+		if(fechas !=null) {
+			 fechas1 = fechas.split(",");
+			 cant = fechas1.length;
+		}
+		
+	
+		System.out.println("cantidad de dias tomados: "+ cant);
 		System.out.println("fechas1: "+fechas1);
 		//String [] vectF = fechas.split(",");
 		//System.out.println(vectF);
 		int unidadAd = (int)session.getAttribute("id_uni_adm");
 		//request.setAttribute("fechas",fechas);
 		System.out.println("fechas seleccionada:"+fechas);
-		boolean exist = Guardias.getGuardia(id);
+		boolean exist = Guardias.getGuardia(id, idperiodo);
+		if(fechas!=null) {
 		if(exist) {
 			System.out.println("El usuario ya existe");
 			request.setAttribute("existe",exist);
 			
 		}else {
 			
-			//boolean insertado = Guardias.insertarGuardia(id, fechas, unidadAd, idperiodo);
-			//if(insertado) {
-				//request.setAttribute("insertado", insertado);
+			boolean insertado = Guardias.insertarGuardia(id, fechas, unidadAd, idperiodo, cant);
+			if(insertado) {
+				request.setAttribute("insertado", insertado);
 			//	getVacaciones(fechas);
 			//}
 			
 		}
+			}
+				}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
+		dispatcher.forward(request, response);
 		//System.out.println("fecha1: "+vectF[0]);
 		//System.out.println("fecha2: "+vectF[1]);
 		//band = Guardias.insertarGuardia(id, fechas,u );
@@ -277,7 +300,14 @@ public class Guardias_servlet extends HttpServlet {
 	private void MostrarGuardias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("Entrando al metodo guar");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/Guardias.jsp");
+		String per = request.getParameter("p");
+		int per1 = 0;
+		if(per!=null) {
+		 per1 = Integer.parseInt(per);
+		}
+		
+		System.out.println("Valor de per1: "+per1);
+		
 		ArrayList<Guardias> listg;
 		HttpSession session = request.getSession(true);
 		int prueba = (int) session.getAttribute("idpercep");
@@ -285,7 +315,7 @@ public class Guardias_servlet extends HttpServlet {
 		System.out.println("unidadde: "+iduni);
 		System.out.println("valooor: "+prueba);
 		String  perfill =  (String) session.getAttribute("perfil");
-	    listg = Guardias.mostrarGuardias(prueba, perfill,iduni);
+	    listg = Guardias.mostrarGuardias(prueba, perfill,iduni, per1);
 	    /*for(Guardias gu:listg) {
 	    	System.out.println("Nombre del o dela: "+gu.getNombre());
 	    	System.out.println("holaaa:"+gu.getPuesto());
@@ -315,6 +345,7 @@ public class Guardias_servlet extends HttpServlet {
 			
 			}
 		*/
+	    RequestDispatcher dispatcher = request.getRequestDispatcher("/Guardias.jsp");
 	    request.setAttribute("periodos", period);
 		request.setAttribute("listaformatos", listg);
 		dispatcher.forward(request, response);

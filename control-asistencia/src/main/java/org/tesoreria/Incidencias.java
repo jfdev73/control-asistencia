@@ -151,7 +151,7 @@ public class Incidencias {
 		this.folio = folio;
 	}
 	
-	public static boolean InsertarIncidencias(int id_usuario,Date d_jts, String hi, String hf,Date d2, Date date_pi, Date date_pf, int tipo_causa, int causa, int id_titular, int id_delegado ) throws ParseException {
+	public static boolean InsertarIncidencias(int id_usuario,Date d_jts, String hi, String hf,Date d2, Date date_pi, Date date_pf, int tipo_causa, int causa, int id_titular, int id_delegado ) throws ParseException, SQLException {
 		boolean bandera = false;
 		
 		if(date_pi==null || date_pf ==null) {
@@ -200,7 +200,7 @@ public class Incidencias {
 		} catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
-	
+	    con.close();
 		return bandera;
 	}
 	
@@ -241,14 +241,15 @@ public static ArrayList<Incidencias> MostrarIncidencias(int idp, String perfil) 
 		    	incidenciasView.add(in);
 		      
 		    	}
+		    con.close();
 		    }catch(SQLException e){
 		    	 e.printStackTrace();
 		    }
-	  
+	   con.close();
 	  return incidenciasView;
 	}
 	
-public static boolean actualizarStatus(int id_jus, int status ) throws ParseException {
+public static boolean actualizarStatus(int id_jus, int status ) throws ParseException, SQLException {
 	boolean bandera = false;
 	
 	//int tc = tipo_causa;
@@ -268,7 +269,7 @@ public static boolean actualizarStatus(int id_jus, int status ) throws ParseExce
 	} catch(SQLException e){
     	 e.printStackTrace();
     }
-
+    con.close();
 	return bandera;
 }
 

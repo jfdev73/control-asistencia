@@ -720,7 +720,7 @@ public Usuario() {}
     } 
     return uid;
   }
-  public static Usuario getIdPercep(int id_usuario) {
+  public static Usuario getIdPercep(int id_usuario) throws SQLException {
 	    Connection con = ConexionP.getConexion();
 	    Statement st = null;
 	    ResultSet res = null;
@@ -741,6 +741,7 @@ public Usuario() {}
 	    }catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
+	con.close();
 	return u;
 	}
   
@@ -818,11 +819,11 @@ public Usuario() {}
 		    }catch(SQLException e){
 		    	 e.printStackTrace();
 		    }
-	  
+	  con.close();
 	  return usuarios;
   }
   
-  public static Usuario getClaveS(int id) {
+  public static Usuario getClaveS(int id) throws SQLException {
 	  Connection con = ConexionP.getConexion();
 	    Statement st = null;
 	    ResultSet res = null;
@@ -840,12 +841,13 @@ public Usuario() {}
 	    }catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
+	con.close();   
 	return u;
 	  
 	  
   }
   
-  public static Usuario getDataV (int id) {
+  public static Usuario getDataV (int id) throws SQLException {
 	  Connection con = ConexionP.getConexion();
 	    Statement st = null;
 	    ResultSet res = null;
@@ -866,9 +868,10 @@ public Usuario() {}
 		    }catch(SQLException e){
 		    	 e.printStackTrace();
 		    }
+	  	con.close();
 		return u;
   }
-  public static String getNomS(int id) {
+  public static String getNomS(int id) throws SQLException {
 	  Connection con = ConexionP.getConexion();
 	    Statement st = null;
 	    ResultSet res = null;
@@ -887,6 +890,7 @@ public Usuario() {}
 	    }catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
+	con.close();
 	return u.getNombre();
 	  
 	  

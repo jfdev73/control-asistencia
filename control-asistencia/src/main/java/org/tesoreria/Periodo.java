@@ -83,11 +83,11 @@ public static ArrayList<Periodo> getPeriodos()throws SQLException {
 		    }catch(SQLException e){
 		    	 e.printStackTrace();
 		    }
-	  
+	  con.close();
 	  return periodos;
 }
 
-public static Periodo getPeriodo(int id_periodo) {
+public static Periodo getPeriodo(int id_periodo) throws SQLException {
 	Connection con = ConexionP.getConexion();
     Statement st = null;
     ResultSet res = null;
@@ -108,7 +108,7 @@ public static Periodo getPeriodo(int id_periodo) {
 	    }catch(SQLException e){
 	    	 e.printStackTrace();
 	    }
-	
+    con.close();
 	return pv;
 	
 }
