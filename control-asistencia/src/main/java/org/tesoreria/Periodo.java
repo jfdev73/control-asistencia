@@ -87,4 +87,30 @@ public static ArrayList<Periodo> getPeriodos()throws SQLException {
 	  return periodos;
 }
 
+public static Periodo getPeriodo(int id_periodo) {
+	Connection con = ConexionP.getConexion();
+    Statement st = null;
+    ResultSet res = null;
+    String sql = "";
+    Periodo pv = null;
+    try {
+	    st = con.createStatement();
+	    sql = "SELECT  fecha_inicio, fecha_termino FROM inventario.periodo_vacacional WHERE periodo_id="+id_periodo+"and status = 1;";
+	    res = st.executeQuery(sql);
+	    while (res.next()) {
+	     pv = new Periodo();
+	      pv.setFecha_inicio(res.getDate(1));
+	      pv.setFecha_fin(res.getDate(2));
+	      
+	      //u.setNombre_titular(res.getString(2));
+	      
+	    	}
+	    }catch(SQLException e){
+	    	 e.printStackTrace();
+	    }
+	
+	return pv;
+	
+}
+
 }

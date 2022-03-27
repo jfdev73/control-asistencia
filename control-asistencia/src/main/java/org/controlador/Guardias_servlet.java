@@ -44,6 +44,8 @@ public class Guardias_servlet extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 		String action = request.getParameter("accion");
 		System.out.println("act: "+action);
+		HttpSession session = request.getSession(true);
+		if(session.getAttribute("theNickName")!=null){
 		try {
 		switch (action) {
 		case "6": {	//Nueva guardia	
@@ -79,6 +81,11 @@ public class Guardias_servlet extends HttpServlet {
 			MostrarGuardias(request, response);
 			break;
 		}
+		case "11":{//listar usuarios
+			
+			registroPeriodo(request, response);
+			break;
+		}
 		case "10":{
 			
 			mostrarUsuariosGuardias(request, response);
@@ -92,7 +99,19 @@ public class Guardias_servlet extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}else{
+			response.sendRedirect("index.jsp");
+		} 
 		
+		
+	}
+
+	private void registroPeriodo(HttpServletRequest request, HttpServletResponse response) {
+		// TODO Auto-generated method stub
+		System.out.println("Entrando al metodo registrar");
+		//String pe = request.getAttribute("periodos");
+		int idperiodo =  Integer.parseInt(request.getParameter("periodos"));
+		System.out.println("Periodo seleccionado: "+idperiodo);
 		
 	}
 
@@ -121,18 +140,40 @@ public class Guardias_servlet extends HttpServlet {
 
 	private void insertarGuardia(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, ParseException {
 		// TODO Auto-generated method stub
+		System.out.println("Entrando al metodo registrar peri");
+		//String pe = request.getAttribute("periodos");
+		String idp2 = request.getParameter("periodos");
+		int idperiodo = 0;
+		if(idp2 != null) {
+		 idperiodo =  Integer.parseInt(request.getParameter("periodos"));
+		}
+		
+		
+		if(idperiodo!=0) {
+		boolean periodoSelec =true;
+		System.out.println("valor de periodo_boolean: "+periodoSelec);
+		request.setAttribute("periodo", idperiodo);
+		}
+		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
+		dispatcher.forward(request, response);
+		System.out.println("Periodo seleccionado: "+idperiodo);
 		boolean band = false;
+		 
 		HttpSession session = request.getSession(true);
 		System.out.println("Etrando al metodo insertar");
-		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
+		
 		String id_perc = request.getParameter("usuariosl");
 		//request.setAttribute("idper",id_perc);
 		int id = Integer.parseInt(id_perc);
 		System.out.println("id seleccionado:"+id_perc);
 		String fechas = request.getParameter("fechas");
+		String[] fechas1 = fechas.split(",");
+		int cant = fechas1.length;
+		System.out.println("cantidad de dias tomados: "+ fechas1);
+		System.out.println("fechas1: "+fechas1);
 		//String [] vectF = fechas.split(",");
 		//System.out.println(vectF);
-		int u = (int)session.getAttribute("id_uni_adm");
+		int unidadAd = (int)session.getAttribute("id_uni_adm");
 		//request.setAttribute("fechas",fechas);
 		System.out.println("fechas seleccionada:"+fechas);
 		boolean exist = Guardias.getGuardia(id);
@@ -142,21 +183,22 @@ public class Guardias_servlet extends HttpServlet {
 			
 		}else {
 			
-			boolean insertado = Guardias.insertarGuardia(id, fechas, u);
-			if(insertado) {
-				request.setAttribute("insertado", insertado);
-				getVacaciones(fechas);
-			}
+			//boolean insertado = Guardias.insertarGuardia(id, fechas, unidadAd, idperiodo);
+			//if(insertado) {
+				//request.setAttribute("insertado", insertado);
+			//	getVacaciones(fechas);
+			//}
 			
 		}
 		//System.out.println("fecha1: "+vectF[0]);
 		//System.out.println("fecha2: "+vectF[1]);
 		//band = Guardias.insertarGuardia(id, fechas,u );
 		//System.out.println("valor de b: "+band);
-		dispatcher.forward(request, response);
+		
+		
 	}
 
-	private void getVacaciones(String gd) {
+	/*private void getVacaciones(String gd) {
 		LocalDate d = LocalDate.parse("2021-04-12");
 		//System.out.println("diaaa: "+d);
 		//String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
@@ -207,7 +249,7 @@ public class Guardias_servlet extends HttpServlet {
         System.out.println(guob);
         
 		
-	}
+	}*/
 
 	private void mostrarUsuariosGuardias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

@@ -98,7 +98,7 @@ public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int un
 }
 
 
-public static boolean insertarGuardia(int id_usuario,String dias, int unidad) throws ParseException {
+public static boolean insertarGuardia(int id_usuario,String dias, int unidad, int idperiodo, int cantdias) throws ParseException {
 	boolean bandera = false;
 	
 	Incidencias in = new Incidencias();
