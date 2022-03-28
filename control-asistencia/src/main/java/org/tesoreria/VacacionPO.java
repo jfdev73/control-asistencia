@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 import conexion.ConexionP;
-import conexion.Usuario;
 
 public class VacacionPO extends Usuario {
 

@@ -19,9 +19,8 @@ import javax.servlet.http.HttpSession;
 import org.tesoreria.Guardias;
 import org.tesoreria.Incidencias;
 import org.tesoreria.Periodo;
+import org.tesoreria.Usuario;
 import org.tesoreria.VacacionPO;
-
-import conexion.Usuario;
 
 /**
  * Servlet implementation class Guardias_servlet

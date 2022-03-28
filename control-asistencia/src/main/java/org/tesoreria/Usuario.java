@@ -1,4 +1,4 @@
-package conexion;
+package org.tesoreria;
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -10,10 +10,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import conexion.ConexionP;
-import conexion.Usuario;
+import org.tesoreria.Usuario;
 
-import org.tesoreria.Titulares;
+import conexion.ConexionP;
 
 public class Usuario {
   private int status;

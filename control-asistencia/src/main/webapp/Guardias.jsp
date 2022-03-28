@@ -2,7 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ page import = "java.util.ArrayList" %>
 <%@ page import = "org.tesoreria.Guardias" %>
-<%@ page import="conexion.Usuario"%>
+<%@ page import="org.tesoreria.Usuario"%>
 <%@ page import="org.tesoreria.Periodo"%>
 <!DOCTYPE html>
 <html lang="en">

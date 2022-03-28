@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 import conexion.ConexionP;
-import conexion.Usuario;
 
 public class Periodo {
  private int id_periodo;

@@ -14,7 +14,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import conexion.ConexionP;
-import conexion.Usuario;
 
 public class Incidencias extends Usuario {
 	

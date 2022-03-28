@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import conexion.ConexionP;
-import conexion.Usuario;
 
 public class PeriodoVacacional {
 

@@ -11,7 +11,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import conexion.ConexionP;
-import conexion.Usuario;
 
 public class Guardias extends Usuario{	
 private String dias;

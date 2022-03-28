@@ -18,9 +18,9 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.tesoreria.Incidencias;
 import org.tesoreria.Titulares;
+import org.tesoreria.Usuario;
 
 import conexion.ConexionLdap;
-import conexion.Usuario;
 
 /**
  * Servlet implementation class login

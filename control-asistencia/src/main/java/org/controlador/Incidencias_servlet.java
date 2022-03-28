@@ -19,8 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.tesoreria.Incidencias;
 import org.tesoreria.Percepcion;
-
-import conexion.Usuario;
+import org.tesoreria.Usuario;
 
 /**
  * Servlet implementation class Incidencias_servlet
