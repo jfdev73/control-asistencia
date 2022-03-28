@@ -139,14 +139,19 @@ public class Guardias_servlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Entrando al metodo eliminar");
 		int id= Integer.parseInt(request.getParameter("id"));
-		boolean good = Guardias.deleteGuardia(id);
+		int periodo = Integer.parseInt(request.getParameter("p"));
+		boolean vacacionDelete = false;
+		boolean good = Guardias.deleteGuardia(id, periodo);
 		//System.out.println("la eliminacion fue :"+good);
 		//RequestDispatcher dispatcher = request.getRequestDispatcher("/Guardias.jsp");
 		//dispatcher.forward(request, response);
+		String ruta = "Guardias_servlet?accion=12&p="+periodo;
 		if(good) {
-			response.sendRedirect("Guardias_servlet?accion=5");
+			vacacionDelete = VacacionPO.deleteVacacionPO(id, periodo);
+			response.sendRedirect(ruta);
+			}
 			//MostrarGuardias(request, response);
-		}
+		
 	}
 
 	

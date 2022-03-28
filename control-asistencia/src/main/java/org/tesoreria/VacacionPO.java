@@ -72,15 +72,12 @@ public static ArrayList<VacacionPO> mostrarVacacionesPO(int idp, String perfil, 
 	
     try {
     	st = con.createStatement();
-    	if(perfil.equals("53")) {
-    		sql="SELECT  justificacion_id, folio, tipo_causa, causa,fecha_justificacion , status, observaciones\r\n"
-					+ "	FROM inventario.justificacion WHERE status=1 and periodo="+periodo+";";
-    	}else if(perfil.equals("54") || perfil.equals("55")) {
+    	
     	sql="SELECT vpo.usuario_id,vpo.unidad, vpo.diasv, pu.usuario, pu.desc_puesto,u.nombre, u.claveservidor\r\n"
     			+ "from inventario.vacaciones_po vpo inner join inventario.percepciones_usuarios pu\r\n"
     			+ "on vpo.usuario_id = pu.per_us_id \r\n"
     			+ "inner join inventario.usuarios u on pu.usuario=u.usuario_id where pu.status = 1 and unidad="+unidad+"and periodo ="+periodo+";";
-    	}
+    	
     	rs = st.executeQuery(sql);
 	    String ejemplo = "2020-05-16";
     	 
@@ -103,6 +100,21 @@ public static ArrayList<VacacionPO> mostrarVacacionesPO(int idp, String perfil, 
   con.close();
   return listVPO;
 }
+public static boolean deleteVacacionPO(int id_usr, int per) throws ParseException, SQLException {
+	boolean bandera = false;
 	
+	Connection con = ConexionP.getConexion();
+    try {
+    	 PreparedStatement ps = con.prepareStatement("DELETE FROM inventario.vacaciones_po where usuario_id=? and periodo=?;");
+    	 ps.setInt(1, id_usr);
+    	 ps.setInt(2, per);
+         ps.executeUpdate();
+         bandera= true;
+	} catch(SQLException e){
+    	 e.printStackTrace();
+    }
+    con.close();
+	return bandera;
+	}
 
 }

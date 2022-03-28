@@ -11,7 +11,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/inci.css">
+  <link rel="stylesheet" href="css/incidencias.css">
   <link rel="stylesheet" href="css/format.css">
   <link rel="stylesheet" href="css/table.css">
   <link rel="stylesheet" href="css/buttonStat.css">
@@ -26,15 +26,14 @@
   <jsp:include page="nav-admin.jsp"></jsp:include>
   <% 
   //ArrayList <Incidencias> incidenciasView = new ArrayList<Incidencias>();
-  ArrayList<Incidencias> list = (ArrayList<Incidencias>) request.getAttribute("listain"); 
   ArrayList<Incidencias> listAdmin = (ArrayList<Incidencias>) request.getAttribute("listainadmin");%>
   
   <h1>Aviso de Justificación de Incidencias en la puntualidad y asistencia</h1>
   <button class="button_agregar" ><a href="nuevaIncidencia.jsp?accion=6" class="ancla">Nueva incidencia</a></button>
-  <%String  perfill =  (String) session.getAttribute("perfil");  
-  if(perfill.equals("53")){%>
+  <%String  perfill =  (String) session.getAttribute("perfil"); 
+  if(perfill.equals("53")){ %>
   <button class="button_agregar" ><a href="Incidencias_servlet?accion=9" class="ancla">Revisar Incidencias</a></button>
-  <% }%>
+  <%} %>
   <main class="main">
     
     <br> <br>
@@ -42,7 +41,7 @@
     <thead>
     <tr> 
     <td>Folio</td>
-    <td class="tipo">Tipo</td>
+    <td>Nombre</td>
     <td>Causa</td>
     <td>Fecha</td>
     <td>Status</td>
@@ -51,14 +50,17 @@
     </thead>
     <tbody>
     <%
-    		for (Incidencias i:list){
+    
+    		for (Incidencias i:listAdmin){
     	    	out.print("<tr>"
     	        +"<td>"+i.getFolio()+"</td>"+
-    	        "<td class='tipoc'>"+i.getTipo_causa()+"</td>"+
+    	        "<td class='tipoc'>"+i.getNombre()+"</td>"+
     	        "<td class='causa'>"+i.getCausa()+"</td>"+
     	        "<td>"+formatter.format(i.getFecha_justificacion())+"</td>"+
     	        "<td class='status'>"+i.getStatus()+"</td>"+
     	        		"<td class='status'>"+i.getObservaciones()+"</td>"+
+    	        				"<td>"+"<button class='butt aceptado'>"+'<'+"a class = 'ancla' href=Confirmacion.jsp?accion="+7+"&id="+i.getJustificacion_id()+'>'+"Aceptar"+"</a>"+"</button>"+"</td>"+
+    	                		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Confirmacion.jsp?accion="+8+"&id="+i.getJustificacion_id()+'>'+"Rechazar"+"</a>"+"</button>"+"</td>"+
     	        //out.print('<'+"option value="+u.getUsuario_id()+'>'+u.getNombre()+"</option>");
     	        "</tr>");
     	    	

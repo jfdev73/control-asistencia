@@ -72,7 +72,7 @@ public class login extends HttpServlet {
 
 		String tEnc = DigestUtils.md5Hex(passw0rd);
 		String prueba = DigestUtils.md5Hex("Acceso2022");
-		//System.out.println("ejemplo de con: " + prueba);
+		System.out.println("ejemplo de con: " + prueba);
 		System.out.println("Texto Encriptado con M5 : " + tEnc);
 		System.out.println("");
 

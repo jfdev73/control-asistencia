@@ -146,6 +146,10 @@ input[type=file]{
     width: 100%;
   }
 
+h1{
+	font-size: 20px
+	
+}
   .submit {
     position: static;
     margin: auto;

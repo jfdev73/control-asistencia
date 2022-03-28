@@ -34,13 +34,13 @@
           <p class="about__paragraph">${unidad}</p>
         </div>
         <br>
-        <div class="main__fechas">
+       <!--   <div class="main__fechas">
           <h3 class="title__vacaciones">Vacaciones</h3>
           <ul class="fechas">
             <li>Te restan 3 dias del primer periodo segunda etapa 2022</li>
             <li>Te restan 2 dias del segundo periodo 2021</li>
           </ul>
-        </div>
+        </div>-->
       </section>
 
 

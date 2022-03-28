@@ -17,6 +17,16 @@ public class Guardias extends Usuario{
 private String dias;
 private int id_guardias;
 
+private int periodo;
+
+public int getPeriodo() {
+	return periodo;
+}
+
+public void setPeriodo(int periodo) {
+	this.periodo = periodo;
+}
+
 public int getId_guardias() {
 	return id_guardias;
 }
@@ -67,15 +77,12 @@ public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int un
 
     try {
     	st = con.createStatement();
-    	if(perfil.equals("53")) {
-    		sql="SELECT  justificacion_id, folio, tipo_causa, causa,fecha_justificacion , status, observaciones\r\n"
-					+ "	FROM inventario.justificacion WHERE status=1 and periodo="+periodo+";";
-    	}else if(perfil.equals("54") || perfil.equals("55")) {
+    	
     	sql="SELECT gu.usuario_id, gu.id_guardias, gu.unidad, pu.desc_puesto,gu.dias,u.nombre, u.claveservidor\r\n"
     			+ "from inventario.guardias gu inner join inventario.percepciones_usuarios pu\r\n"
     			+ "on gu.usuario_id = pu.per_us_id \r\n"
     			+ "inner join inventario.usuarios u on pu.usuario=u.usuario_id where pu.status = 1 and unidad="+unidad+"and periodo="+periodo+";";
-    	}
+    	
     	rs = st.executeQuery(sql);
 	    String ejemplo = "2020-05-16";
     	 
@@ -88,6 +95,7 @@ public static ArrayList<Guardias> mostrarGuardias(int idp, String perfil, int un
 	    	guardia.setDias(rs.getString(5));
 	    	guardia.setNombre(rs.getString(6));
 	    	guardia.setClave_servidor(rs.getString(7));
+	    	guardia.setPeriodo(periodo);
 	    	g.add(guardia);
 	      
 	    	}
@@ -155,13 +163,14 @@ public static boolean getGuardia(int id_usr, int periodo_id) throws SQLException
 	return existe;
 }
 
-public static boolean deleteGuardia(int id_usr) throws ParseException, SQLException {
+public static boolean deleteGuardia(int id_usr, int per) throws ParseException, SQLException {
 	boolean bandera = false;
 	
 	Connection con = ConexionP.getConexion();
     try {
-    	 PreparedStatement ps = con.prepareStatement("DELETE FROM inventario.guardias where usuario_id=?;");
+    	 PreparedStatement ps = con.prepareStatement("DELETE FROM inventario.guardias where usuario_id=? and periodo=?;");
     	 ps.setInt(1, id_usr);
+    	 ps.setInt(2, per);
          ps.executeUpdate();
          bandera= true;
 	} catch(SQLException e){

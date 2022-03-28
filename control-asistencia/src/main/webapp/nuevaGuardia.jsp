@@ -96,7 +96,7 @@ response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
 							}
 							%>
 						</select> <br>
-						<input type="submit" value="Aceptar"> <br></form>
+						<input type="submit" value="Aceptar" class="button"> <br></form>
 						<%
 						Object p = request.getAttribute("periodo");
 						//out.println("valor default: " + p);

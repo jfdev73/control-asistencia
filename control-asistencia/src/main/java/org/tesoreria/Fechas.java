@@ -44,7 +44,7 @@ public class Fechas {
        
        String fechasEjemplo = "12/04/2021,13/04/2021";
 		//System.out.println("fechasejemplo: "+fechasEjemplo);
-		String[] arrayOfInts = fechasEjemplo.split(",");
+		//String[] arrayOfInts = fechasEjemplo.split(",");
 		boolean guardia = true;
         for (int k=0 ; k <cad.size();k++) {
      	   boolean esVacacion = true;

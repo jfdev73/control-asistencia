@@ -33,7 +33,7 @@
           <input type="text" placeholder="Ingresa tu usuario" class="form-control" name="nickuser" required>
           <br>
           <label>Contraseña:</label>
-          <input type="password" placeholder="" class="form-control pass" name="password" required><br>
+          <input type="password" placeholder="Contraseña" class="form-control pass" name="password" required><br>
           <%
         Object e = session.getAttribute("error");
           if(e !=null ){

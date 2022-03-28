@@ -21,10 +21,35 @@
   
   <h1>Aviso de Justificación de Incidencias en la puntualidad y asistencia</h1>
   <%	Integer e = (Integer)(request.getAttribute("errorjust"));
+  		//out.println("valor del error: "+e);
   		if(e!=null){
   		switch(e){
+  		case 1:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"Selecciona fecha de justificacion"+"</div>");
+  			break;
+  		}
+  		case 2:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"Falta seleccionar un periodo de permiso"+"</div>");
+  			break;
+  		}
   		case 3:{
-  			out.println("<div class='msj>'"+"<span> ¡Error! </span>"+"Selecciona una fecha de permiso"+"</div>");
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"Selecciona una fecha de permiso"+"</div>");
+  			break;
+  		}
+  		case 5:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"Selecciona una tipo de causa"+"</div>");
+  			break;
+  		}
+  		case 6:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"Selecciona o escribe la causa"+"</div>");
+  			break;
+  		}
+  		case 7:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"La fecha final de permiso por periodo debe ser mayor a la fecha inicial"+"</div>");
+  			break;
+  		}
+  		case 10:{
+  			out.println("<div class='msj alertac'"+"<span> ¡Error! </span>"+"La hora final debe ser mayor a la hora final"+"</div>");
   			break;
   		}
   		
@@ -33,7 +58,7 @@
   		String mensaje = null;
       mensaje =(String)request.getAttribute("mensaje");
       if(mensaje !=null){
-      out.println("<p class='alertac'>"+"¡"+mensaje.toUpperCase()+"!"+"</p>");
+      out.println("<p class='alertac msjok '>"+"¡"+mensaje.toUpperCase()+"!"+"</p>");
       }
       %>
   <main class="main">
@@ -49,7 +74,7 @@
       <label>FECHA</label>
       <input type="date" name="date_just" required><br><br>
       <label>Horario o periodo de permiso</label><br>
-      <span> de </span> <input type="time" name="h_inicio" required><span> a </span> <input type="time" name="h_final" required><br><br>
+      <span> de </span> <input type="time" name="h_inicio" required min="09:00" max="18:00" value="09:00"><span> a </span> <input type="time" name="h_final" required min="09:00" max="18:00" value="09:00"><br><br>
       <p>Selecciona la fecha de permiso por: </p>
       <label for="tipoFecha">Periodo</label>
     <input type="radio" id="periodo" name="tipoFecha" value="10">
@@ -77,10 +102,10 @@
       <div class="form-group">
         <label for="no pudo" class="not_v label__opc">Seleccione la causa:</label>
         <select name="causa" id="causa" class="not_v" required>
-          <option value="a">-</option>
+          <option value ="a">-</option>
         </select>
         <div class="otros">
-          <textarea name="" id="" cols="30" rows="10" class="text__area txt_not"></textarea>
+          <textarea name="razon" id="" cols="30" rows="10" class="text__area txt_not"></textarea>
            
       
         </div>

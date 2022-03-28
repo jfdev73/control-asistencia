@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 import conexion.ConexionP;
 import conexion.Usuario;
 
-public class Incidencias {
+public class Incidencias extends Usuario {
 	
 	private int justificacion_id;
 	
@@ -220,12 +220,9 @@ public static ArrayList<Incidencias> MostrarIncidencias(int idp, String perfil) 
   
 	    try {
 	    	st = con.createStatement();
-	    	if(perfil.equals("53")) {
-	    		sql="SELECT  justificacion_id, folio, tipo_causa, causa,fecha_justificacion , status, observaciones\r\n"
-						+ "	FROM inventario.justificacion WHERE status=1;";
-	    	}else if(perfil.equals("54") || perfil.equals("55")) {
+	    	
 	    	sql="SELECT  justificacion_id, folio, tipo_causa, causa,fecha_justificacion , status, observaciones\r\n"
-					+ "	FROM inventario.justificacion WHERE usuario_id="+idp+";";}
+					+ "	FROM inventario.justificacion WHERE usuario_id="+idp+";";
 	    	rs = st.executeQuery(sql);
 		    String ejemplo = "2020-05-16";
 	    	 
@@ -249,7 +246,47 @@ public static ArrayList<Incidencias> MostrarIncidencias(int idp, String perfil) 
 	  return incidenciasView;
 	}
 	
-public static boolean actualizarStatus(int id_jus, int status ) throws ParseException, SQLException {
+public static ArrayList<Incidencias> MostrarIncidenciasAdmin(int idp, String perfil) throws SQLException {
+	String sql = "";
+	boolean bandera = false;
+	Statement st = null;
+	ResultSet rs = null;
+	ArrayList <Incidencias> incidenciasA = new ArrayList<Incidencias>();
+	
+	Connection con = ConexionP.getConexion();
+
+    try {
+    	st = con.createStatement();
+    	
+    		sql="SELECT  justificacion_id, u.nombre,folio, tipo_causa, causa,fecha_justificacion, ju.status , observaciones\r\n"
+	    			+ "FROM inventario.justificacion ju inner join inventario.percepciones_usuarios pu on ju.usuario_id = pu.per_us_id\r\n"
+	    			+ "inner join inventario.usuarios u on pu.usuario=u.usuario_id\r\n"
+	    			+ " WHERE ju.status=1;";
+    		rs = st.executeQuery(sql);
+    	 
+	    while (rs.next()) {
+	    	Incidencias ina = new Incidencias();
+	    	ina.setJustificacion_id(rs.getInt(1));
+	    	ina.setNombre(rs.getString(2));
+	    	ina.setFolio(rs.getString(3));
+	        ina.setTipo_causa(rs.getString(4));
+	        ina.setCausa(rs.getString(5));
+	        ina.setFecha_justificacion(rs.getDate(6));
+	        ina.setStatus(rs.getInt(7));
+	        ina.setObservaciones(rs.getString(8));
+	    	incidenciasA.add(ina);
+	      
+	    	}
+	    con.close();
+	    }catch(SQLException e){
+	    	 e.printStackTrace();
+	    }
+   con.close();
+  return incidenciasA;
+}
+
+
+public static boolean actualizarStatus(int id_jus, int status, String observacion ) throws ParseException, SQLException {
 	boolean bandera = false;
 	
 	//int tc = tipo_causa;
@@ -260,10 +297,11 @@ public static boolean actualizarStatus(int id_jus, int status ) throws ParseExce
 
     
     try {
-    	 PreparedStatement ps = con.prepareStatement("UPDATE inventario.justificacion SET status=? where justificacion_id=?;");
+    	 PreparedStatement ps = con.prepareStatement("UPDATE inventario.justificacion SET status=?, observaciones=? where justificacion_id=?;");
     	 
     	 ps.setInt(1, status);
-    	 ps.setInt(2, id_jus);
+    	 ps.setString(2, observacion);
+    	 ps.setInt(3, id_jus);
          ps.executeUpdate();
          bandera= true;
 	} catch(SQLException e){

@@ -70,8 +70,8 @@
     	    	+"<td>"+j.getNombre()+"</td>"
     	    	+"<td>"+j.getPuesto()+"</td>"
     	        +"<td>"+j.getDias()+"</td>"+
-    	        "<td>"+"<button class='butt aceptado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+7+"&id="+j.getId_guardias()+'>'+"Editar"+"</a>"+"</button>"+"</td>"+
-        		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+8+"&id="+j.getId_percepciones()+'>'+"Eliminar"+"</a>"+"</button>"+"</td>"+
+    	       // "<td>"+"<button class='butt aceptado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+7+"&id="+j.getId_guardias()+'>'+"Editar"+"</a>"+"</button>"+"</td>"+
+        		"<td>"+"<button class='butt rechazado'>"+'<'+"a class = 'ancla' href=Guardias_servlet?accion="+8+"&id="+j.getId_percepciones()+"&p="+j.getPeriodo()+'>'+"Eliminar"+"</a>"+"</button>"+"</td>"+
     	    			
     	        //"<td>"+j.getNomS(j.getUsuario_id())+"</td>"+
     	    			
@@ -85,7 +85,27 @@
     	    	
     	    }
     	}
-    }  %>
+    }else{  
+    	for (Guardias j:list){
+	    	out.print("<tr>"
+	    	+"<td>"+j.getClave_servidor()+"</td>"
+	    	+"<td>"+j.getNombre()+"</td>"
+	    	+"<td>"+j.getPuesto()+"</td>"
+	        +"<td>"+j.getDias()+"</td>"+
+
+	        //"<td>"+j.getNomS(j.getUsuario_id())+"</td>"+
+	    			
+	        //"<td>"+j.getNombre()+"</td>"+
+	        //"<td>"+j.getCausa()+"</td>"+
+	        //"<td>"+formatter.format(i.getFecha_justificacion())+"</td>"+
+	        //"<td class='status'>"+i.getStatus()+"</td>"+
+	        	//	"<td class='status'>"+i.getObservaciones()+"</td>"+
+	        //out.print('<'+"option value="+u.getUsuario_id()+'>'+u.getNombre()+"</option>");
+	        "</tr>");
+	    	
+	    }
+    	
+    }%>
   </main>
     
 </body>
