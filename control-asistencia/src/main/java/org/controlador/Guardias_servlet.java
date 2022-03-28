@@ -3,6 +3,7 @@ package org.controlador;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import org.tesoreria.Guardias;
 import org.tesoreria.Incidencias;
 import org.tesoreria.Periodo;
+import org.tesoreria.VacacionPO;
 
 import conexion.Usuario;
 
@@ -188,7 +190,7 @@ public class Guardias_servlet extends HttpServlet {
 		
 	
 		System.out.println("cantidad de dias tomados: "+ cant);
-		System.out.println("fechas1: "+fechas1);
+		
 		//String [] vectF = fechas.split(",");
 		//System.out.println(vectF);
 		int unidadAd = (int)session.getAttribute("id_uni_adm");
@@ -205,12 +207,18 @@ public class Guardias_servlet extends HttpServlet {
 			boolean insertado = Guardias.insertarGuardia(id, fechas, unidadAd, idperiodo, cant);
 			if(insertado) {
 				request.setAttribute("insertado", insertado);
-			//	getVacaciones(fechas);
-			//}
+				String fechasv = getVacaciones(fechas, idperiodo);
+				boolean insertarv = VacacionPO.insertarVacacion(id, fechasv, unidadAd, idperiodo);
+				if(insertarv) {
+					System.out.println("Se agregaron vacaciones");
+					
+				}
 			
 		}
 			}
 				}
+		
+		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("nuevaGuardia.jsp");
 		dispatcher.forward(request, response);
 		//System.out.println("fecha1: "+vectF[0]);
@@ -221,58 +229,77 @@ public class Guardias_servlet extends HttpServlet {
 		
 	}
 
-	/*private void getVacaciones(String gd) {
+	private String getVacaciones(String fechas, int idPeriodo) throws SQLException {
+		// TODO Auto-generated method stub
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		LocalDate hoy = LocalDate.now();
 		LocalDate d = LocalDate.parse("2021-04-12");
-		//System.out.println("diaaa: "+d);
-		//String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
-		//System.out.println("prueba: "+ddd);
-		//d = d.plusDays(1);
-		
-		//System.out.println("fecha add: "+d);
-        //Period periodo = Period.ofDays(1);
+		Periodo p = Periodo.getPeriodo(idPeriodo);
+		String fechaInicio = "";
+		fechaInicio = p.getFecha_inicio().toString();
+		int periodo = 0;
+		int etapa = 0;
+		periodo = p.getPeriodo();
+		etapa = p.getEtapa();
+		int duracionPeriodo = 5;
+		if(periodo == 2 && etapa==1 ) {
+			duracionPeriodo = 10;
+			
+		}
+		d =LocalDate.parse(fechaInicio);
+		/*Periodo perv = Periodo.getPeriodo(p2);
+
+		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+		fechaInicio = "\"" + format.format(perv.getFecha_inicio()) + "\"";
+		fechaFinal = "\"" + format.format(perv.getFecha_fin()) + "\"";*/
+	
         ArrayList<String> cad = new ArrayList<String>();
-       for(int ii = 0;ii<5;ii++) {
-    	   //cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
-    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-    	   
-    	   //fechas.add(f);
+       for(int ii = 0;ii<duracionPeriodo;ii++) { 
+    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));    	   
        }
-       
-       
        System.out.println(cad);
-       ArrayList<String> vacaciones= new ArrayList<String>();
        ArrayList<String> guardias= new ArrayList<String>();
+       ArrayList<String> vacaciones= new ArrayList<String>();
        String v="";
-       String guob ="";
+       String g ="";
        
-       //String fechasEjemplo = "12/04/2021,13/04/2021";
-       String fechasEjemplo = gd;
-		System.out.println("fechasejemplo: "+fechasEjemplo);
+       String fechasEjemplo = "12/04/2021,13/04/2021";
+       fechasEjemplo = fechas;
+		//System.out.println("fechasejemplo: "+fechasEjemplo);
 		String[] arrayOfInts = fechasEjemplo.split(",");
+		boolean guardia = true;
         for (int k=0 ; k <cad.size();k++) {
-     	   boolean esGuardia = true;
+     	   boolean esVacacion = true;
      	   for (int j=0 ; j <arrayOfInts.length;j++) {
      		   //System.out.println("valor" + arrayOfInts[j]);
      		   if (arrayOfInts[j].equals(cad.get(k))) {
-     			   System.out.println("vaciones " + arrayOfInts[j]);
-     			   vacaciones.add(arrayOfInts[j]);
-     			   esGuardia = false;
-     			   v += arrayOfInts[j] + "," ;
+     			   System.out.println("guardias " + arrayOfInts[j]);
+     			   guardias.add(arrayOfInts[j]);
+     			   esVacacion = false;
+     			   g += arrayOfInts[j] + "," ;
+     		   }else {
+     			   guardia = false;
+     			  
      		   }
      		   
      	   }
-     	   if (esGuardia) {
-     	   System.out.println("guardia " + cad.get(k));
-     	   guardias.add(cad.get(k));
-     	   guob += cad.get(k) + ",";
+     	   if (esVacacion) {
+     	   System.out.println("vacacion " + cad.get(k));
+     	   vacaciones.add(cad.get(k));
+     	   v += cad.get(k) + ",";
      	   }
      	   
         }
+        System.out.println("Guardias ");
+        g = g.substring(0, g.length()-1); 
+        v= v.substring(0, v.length()-1);
+       	System.out.println(g);
+       	System.out.println("Vacaciones ");
         System.out.println(v);
-        System.out.println(guob);
-        
-		
-	}*/
+        return v;
+	}
+
+
 
 	private void mostrarUsuariosGuardias(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub

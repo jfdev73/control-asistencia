@@ -27,84 +27,54 @@ public class Fechas {
 		this.dias = dias;
 	}
 	public static void main(String[] args) throws ParseException {
-		//12/04/2021' '16/04/2021'
+		
 		SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-		SimpleDateFormat format2 = new SimpleDateFormat("EEEE yyyy/MM/dd");
-		//Date firstDate = format.parse("30/07/1992");
-		String fi = "12/04/2021";
-		java.util.Date dated = format.parse(fi);
-		//System.out.println("fecha antes: "+ format.format(dated));
-	/* Calendar c = Calendar.getInstance();
-        c.setTime(dt);
-        c.add(Calendar.DATE, 1);
-        dt = c.getTime();
-        System.out.println("Tomorrow: "+dt);*/
-		/* LocalDateTime today = LocalDateTime.now();     //Today
-        LocalDateTime tomorrow = today.plusDays(1);     //Plus 1 day
-        LocalDateTime yesterday = today.minusDays(1);   //Minus 1 day
-        System.out.println("Today:     "+today);          
-        System.out.println("Tomorrow:  "+tomorrow);      
-        System.out.println("Yesterday: "+yesterday);*/
-		int i = 0;
-	
-		//Localtime d1 = dated;
-		//
 		LocalDate hoy = LocalDate.now();
 		LocalDate d = LocalDate.parse("2021-04-12");
-		//System.out.println("diaaa: "+d);
-		//String ddd = d.format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy"));
-		//System.out.println("prueba: "+ddd);
-		//d = d.plusDays(1);
-		
-		//System.out.println("fecha add: "+d);
-        //Period periodo = Period.ofDays(1);
+	
         ArrayList<String> cad = new ArrayList<String>();
-       for(int ii = 0;ii<5;ii++) {
-    	   //cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("EEEE dd/MM/yyyy")));
-    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
-    	   
-    	   //fechas.add(f);
+       for(int ii = 0;ii<5;ii++) { 
+    	   cad.add(d.plusDays(ii).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));    	   
        }
-       
-       
        System.out.println(cad);
-       ArrayList<String> vacaciones= new ArrayList<String>();
        ArrayList<String> guardias= new ArrayList<String>();
+       ArrayList<String> vacaciones= new ArrayList<String>();
        String v="";
        String g ="";
        
        String fechasEjemplo = "12/04/2021,13/04/2021";
 		//System.out.println("fechasejemplo: "+fechasEjemplo);
 		String[] arrayOfInts = fechasEjemplo.split(",");
-		boolean diav = true;
+		boolean guardia = true;
         for (int k=0 ; k <cad.size();k++) {
-     	   boolean esGuardia = true;
+     	   boolean esVacacion = true;
      	   for (int j=0 ; j <arrayOfInts.length;j++) {
      		   //System.out.println("valor" + arrayOfInts[j]);
      		   if (arrayOfInts[j].equals(cad.get(k))) {
-     			   System.out.println("vaciones " + arrayOfInts[j]);
-     			   vacaciones.add(arrayOfInts[j]);
-     			   esGuardia = false;
-     			   v += arrayOfInts[j] + "," ;
+     			   System.out.println("guardias " + arrayOfInts[j]);
+     			   guardias.add(arrayOfInts[j]);
+     			   esVacacion = false;
+     			   g += arrayOfInts[j] + "," ;
      		   }else {
-     			   diav = false;
+     			   guardia = false;
      			  
      		   }
      		   
      	   }
-     	   if (esGuardia) {
-     	   System.out.println("guardia " + cad.get(k));
-     	   guardias.add(cad.get(k));
-     	   g += cad.get(k) + ",";
+     	   if (esVacacion) {
+     	   System.out.println("vacacion " + cad.get(k));
+     	   vacaciones.add(cad.get(k));
+     	   v += cad.get(k) + ",";
      	   }
      	   
         }
-        if(diav==false) {
-  		   System.out.println("No corresponden los dias al periodo");
-  		   
-  	   }
+        System.out.println("Guardias ");
+        g = g.substring(0, g.length()-1); 
+        v= v.substring(0, v.length()-1);
+       	System.out.println(g);
+       	System.out.println("Vacaciones ");
         System.out.println(v);
-        System.out.println(g);
+       
         
        /*
       for(Fechas fe:fechas) {

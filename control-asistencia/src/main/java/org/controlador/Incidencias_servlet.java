@@ -161,7 +161,7 @@ public class Incidencias_servlet extends HttpServlet {
 		
 	}
 
-	private void registrarIncidencia(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException {
+	private void registrarIncidencia(HttpServletRequest request, HttpServletResponse response) throws ParseException, ServletException, IOException, SQLException {
 		// TODO Auto-generated method stub
 		System.out.println("Entrando al metodo de registro \n");
 		
@@ -254,8 +254,8 @@ public class Incidencias_servlet extends HttpServlet {
 			request.setAttribute("errorjust", error);
 			
 		}else {
-			tipo_causa = Integer.parseInt(tc);
-			System.out.println("tipo_causa: "+tipo_causa);
+			//tipo_causa = Integer.parseInt(tc);
+			//System.out.println("tipo_causa: "+tipo_causa);
 		}
 			}
 		
@@ -268,8 +268,8 @@ public class Incidencias_servlet extends HttpServlet {
 			error=6;
 			request.setAttribute("errorjust", error);
 		}else{
-			 causa= Integer.parseInt(c);
-			System.out.println("causa: "+causa);
+			 //causa= Integer.parseInt(c);
+			//System.out.println("causa: "+causa);
 			
 		}
 		 }
@@ -284,7 +284,7 @@ public class Incidencias_servlet extends HttpServlet {
 		//String archivo = request.getParameter("archivo");
 		//System.out.println("archivo: "+archivo);
 		if(error==0) {
-		 b = Incidencias.InsertarIncidencias(id_usuario,date_js, h_inicio, h_final, dateD, dateP_inicio, dateP_final, tipo_causa, causa, id_titular, id_delegado);
+		 b = Incidencias.InsertarIncidencias(id_usuario,date_js, h_inicio, h_final, dateD, dateP_inicio, dateP_final, tc, c, id_titular, id_delegado);
 			System.out.println("valor de b: "+b);
 		}
 		

@@ -43,7 +43,7 @@
   <button class="button_agregar"><a class="ancla" href="nuevaGuardia.jsp?action=6">Nuevo Formato Guardias</a></button>
   <%for (Periodo p : listPeriodo) {
 		//out.print('<'+"option value="+u.getId_percepciones()+'>'+u.getNombre()+"</option>");
-		out.print('<' + "button class='button_agregar' value=" + p.getId_periodo() + '>' +
+		out.print('<' + "button class='button_agregar button_periodos' value=" + p.getId_periodo() + '>' +
 		'<'+"a class='ancla'" +"href="+"Guardias_servlet?accion=12&p="+p.getId_periodo()+'>'+ p.getPeriodo() + "  PERIODO  " + p.getEtapa() + " ETAPA"
 		+ "</a>"+"</button>");
 		//out.print('<'+"option value="+p.getId_periodo()+'>'+p.getPeriodo()+" PERIODO "+p.getEtapa()+" ETAPA"+"</option");

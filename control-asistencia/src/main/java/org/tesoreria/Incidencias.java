@@ -20,9 +20,9 @@ public class Incidencias {
 	
 	private int justificacion_id;
 	
-	private int tipo_causa;
+	private String tipo_causa;
 	
-	private int causa;
+	private String causa;
 	
 	private int usuario_id;
 	
@@ -48,7 +48,7 @@ public class Incidencias {
 	public Incidencias() {};
 	public Incidencias( int justificacion_id,int usuario_id, String horario_inicio, String horario_termino,
 			String fecha_inicial, String fecha_final, int status, String observaciones, Date fecha_justificacion,
-			int titular_id, int delegado_id, String folio, int tipo_causa, int causa) {
+			int titular_id, int delegado_id, String folio, String tipo_causa, String causa) {
 		this.justificacion_id= justificacion_id;
 		this.tipo_causa = tipo_causa;
 		this.causa = causa;
@@ -72,16 +72,16 @@ public class Incidencias {
 	public void setJustificacion_id(int justificacion_id) {
 		this.justificacion_id = justificacion_id;
 	}
-	public int getTipo_causa() {
+	public String getTipo_causa() {
 		return tipo_causa;
 	}
-	public void setTipo_causa(int tipo_causa) {
+	public void setTipo_causa(String tipo_causa) {
 		this.tipo_causa = tipo_causa;
 	}
-	public int getCausa() {
+	public String getCausa() {
 		return causa;
 	}
-	public void setCausa(int causa) {
+	public void setCausa(String causa) {
 		this.causa = causa;
 	}
 	public int getUsuario_id() {
@@ -151,7 +151,7 @@ public class Incidencias {
 		this.folio = folio;
 	}
 	
-	public static boolean InsertarIncidencias(int id_usuario,Date d_jts, String hi, String hf,Date d2, Date date_pi, Date date_pf, int tipo_causa, int causa, int id_titular, int id_delegado ) throws ParseException, SQLException {
+	public static boolean InsertarIncidencias(int id_usuario,Date d_jts, String hi, String hf,Date d2, Date date_pi, Date date_pf, String tipo_causa, String causa, int id_titular, int id_delegado ) throws ParseException, SQLException {
 		boolean bandera = false;
 		
 		if(date_pi==null || date_pf ==null) {
@@ -192,8 +192,8 @@ public class Incidencias {
 	    	 ps.setInt(9, id_titular);
 	    	 ps.setInt(10, id_delegado);
 	    	 ps.setInt(11, 10);
-	    	 ps.setInt(12, tipo_causa);
-	    	 ps.setInt(13, causa);
+	    	 ps.setString(12, tipo_causa);
+	    	 ps.setString(13, causa);
 	    	 
 	          ps.executeUpdate();
 	         bandera= true;
@@ -233,8 +233,8 @@ public static ArrayList<Incidencias> MostrarIncidencias(int idp, String perfil) 
 		    	Incidencias in = new Incidencias();
 		    	in.setJustificacion_id(rs.getInt(1));
 		    	in.setFolio(rs.getString(2));
-		        in.setTipo_causa(rs.getInt(3));
-		        in.setCausa(rs.getInt(4));
+		        in.setTipo_causa(rs.getString(3));
+		        in.setCausa(rs.getString(4));
 		        in.setFecha_justificacion(rs.getDate(5));
 		        in.setStatus(rs.getInt(6));
 		        in.setObservaciones(rs.getString(7));

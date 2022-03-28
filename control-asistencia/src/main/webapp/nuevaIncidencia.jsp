@@ -64,12 +64,12 @@
         <label for="autorizacion" class="label__opc">Seleccione el tipo de causa: </label>
         <select name="tipo_causa" id="opcion" required>
           <option value="7" selected disabled>Seleccione una opción</option>
-          <option value="8">Por autorización del superior inmediato</option>
-          <option value="9">No pudo registrar por</option>
-          <option value="10">Licencias médicas</option>
-          <option value="11">Licencias personales</option>
-          <option value="12">Comisiones</option>
-          <option value="13">Otros</option>
+          <option value="Por autorizacion del superior inmediato">Por autorización del superior inmediato</option>
+          <option value="No pudo registrar por">No pudo registrar por</option>
+          <option value="Licencias medicas">Licencias médicas</option>
+          <option value="Licencias personales">Licencias personales</option>
+          <option value="Comisiones">Comisiones</option>
+          <option value="Otros">Otros</option>
         </select>
 
       </div>
@@ -97,7 +97,7 @@
       <figure class="img__container"><img src="assets/img/puntualidad.svg" alt="" class="puntualidad__img"></figure>
     </section>
   </main>
-  <script src="js/1.js"></script>
+  <script src="js/2.js"></script>
    <script src="js/app2.js"></script>
 </body>
 

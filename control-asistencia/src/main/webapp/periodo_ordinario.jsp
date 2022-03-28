@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ page import="org.tesoreria.Periodo"%>
+<%@ page import="org.tesoreria.VacacionPO"%>
+<%@ page import = "java.util.ArrayList" %>
 <!DOCTYPE html>
 <html lang="en">
 <%if(session.getAttribute("theNickName")!=null){ %>
@@ -9,6 +12,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/periodo_ordinario.css">
   <link rel="stylesheet" href="css/format.css">
+  <link rel="stylesheet" href="css/table.css">
+  <link rel="stylesheet" href="css/buttonStat.css">
   <title>vacaciones PO</title>
   <%
   response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");
@@ -17,47 +22,58 @@
 
 <body>
 <jsp:include page="nav-admin.jsp"></jsp:include>
+<%ArrayList<Periodo> listPeriodo; 
+  listPeriodo = Periodo.getPeriodos();
+  %>
   <h1>Aviso de vacaciones de servidores públicos en periodo ordinario</h1>
   <main class="main">
     <section class="main__contanier container">
-      <b for="" class="label__read">Dirección: </b><span class="servidor_publico">juan fernando
-        miranda
-        monroy</span> <br>
-      <b for="" class="label__read">departamento: </b><span>4235252356236</span><br>
-      <b for="" class="label__read">subdirección: </b><span>Unidad de Informática</span><br>
-      <div class="form__container">
-        <form action="#" class="form__incidencias">
-          <p>Selecciona el periodo:</p><br>
-          <input type="radio" id="html" name="fav_language" value="HTML">
-          <label for="html">1° periodo primera etapa</label>
-          <input type="radio" id="css" name="fav_language" value="CSS">
-          <label for="css">1° periodo segunda etapa</label>
-          <input type="radio" id="javascript" name="fav_language" value="JavaScript">
-          <label for="javascript">2° periodo</label><br>
-          <span>del </span><input type="date"> <span>al</span> </span><input type="date"><br>
-        </form>
-      </div>
-      <div class="relacion">
-        <select name="autorizacion" id="autorizacion">
-          <option value="falta">Falta de puntualidad a la entrada</option>
-          <option value="saab">Falta de asistencia</option>
-          <option value="opel">Dias económicos
-            <br><small>(hasta 14 al año a servidores publicos sindicalizados)</small>
-          </option>
-          <option value="audi">Retirarse entre horas</option>
-          <option value="audi">Consulta médica</option>
-          <option value="audi">Salida antes por autorización</option>
-          <option value="opel">permiso por lactancia
-            <br><small>(hasta 6 meses después del parto)</small>
-          </option>
-        </select>
-        <button class="button">Agregar</button>
-
-      </div>
+     <%for (Periodo p : listPeriodo) {
+		//out.print('<'+"option value="+u.getId_percepciones()+'>'+u.getNombre()+"</option>");
+		out.print('<' + "button class='button_agregar button_periodos' value=" + p.getId_periodo() + '>' +
+		'<'+"a class='ancla'" +"href="+"Vacacionespo_servlet?accion=5&p="+p.getId_periodo()+'>'+ p.getPeriodo() + "  PERIODO  " + p.getEtapa() + " ETAPA"
+		+ "</a>"+"</button>");
+		//out.print('<'+"option value="+p.getId_periodo()+'>'+p.getPeriodo()+" PERIODO "+p.getEtapa()+" ETAPA"+"</option");
+	} %>
+	<% 
+  //ArrayList <Incidencias> incidenciasView = new ArrayList<Incidencias>();
+  ArrayList<VacacionPO> listV = (ArrayList<VacacionPO>) request.getAttribute("listavacaciones"); %>
+	<table width="90%" class="table_style">
+    <thead>
+    <tr> 
+    <td>Clave de Servidor</td>
+    <td>Nombre</td>
+    <td>Puesto</td>
+    <td>Fechas</td>
+    <!--  <td>Status</td>-->
+   
+    </tr>
+    </thead>
+    <tbody>
+    <%String  perfill =  (String) session.getAttribute("perfil");
+    	if(listV!=null){
+    for (VacacionPO vp:listV){
+    	    	out.print("<tr>"
+    	    	+"<td>"+vp.getClave_servidor()+"</td>"
+    	    	+"<td>"+vp.getNombre()+"</td>"
+    	    	+"<td>"+vp.getPuesto()+"</td>"
+    	        +"<td>"+vp.getVacaciones()+"</td>"+
+    	        
+    	        //"<td>"+j.getNomS(j.getUsuario_id())+"</td>"+
+    	    			
+    	        //"<td>"+j.getNombre()+"</td>"+
+    	        //"<td>"+j.getCausa()+"</td>"+
+    	        //"<td>"+formatter.format(i.getFecha_justificacion())+"</td>"+
+    	        //"<td class='status'>"+i.getStatus()+"</td>"+
+    	        	//	"<td class='status'>"+i.getObservaciones()+"</td>"+
+    	        //out.print('<'+"option value="+u.getUsuario_id()+'>'+u.getNombre()+"</option>");
+    	        "</tr>");
+    	    	
+    	    }
+    	}
+     %>
     </section>
-    <section class="img__section container">
-      <figure class="img__container"><img src="assets/img/vacaciones.svg" alt="" class="puntualidad__img"></figure>
-    </section>
+   
   </main>
 </body>
 

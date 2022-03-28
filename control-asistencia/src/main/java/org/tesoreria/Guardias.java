@@ -16,6 +16,7 @@ import conexion.Usuario;
 public class Guardias extends Usuario{	
 private String dias;
 private int id_guardias;
+
 public int getId_guardias() {
 	return id_guardias;
 }

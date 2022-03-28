@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+
+<%@page contentType="text/html"%>
+<%@page pageEncoding="UTF-8"%>
     <%@ page import = "java.util.ArrayList" %>
     <%@ page import = "org.tesoreria.Incidencias" %>
     <%@ page import = "java.text.SimpleDateFormat" %>
@@ -7,14 +8,14 @@
 <html lang="en">
 <%if(session.getAttribute("theNickName")!=null){ %>
 <head>
-  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/incidencias.css">
   <link rel="stylesheet" href="css/format.css">
   <link rel="stylesheet" href="css/table.css">
   <link rel="stylesheet" href="css/buttonStat.css">
-  <title>Justificación de Incidencias</title>
+  <title>JustificaciÃ³n de Incidencias</title>
  <%/* 
   response.setHeader("Cache-Control", "no-cache, no-store, must-revaldiate");*/
   %>
@@ -27,7 +28,7 @@
   //ArrayList <Incidencias> incidenciasView = new ArrayList<Incidencias>();
   ArrayList<Incidencias> list = (ArrayList<Incidencias>) request.getAttribute("listain"); %>
   
-  <h1>Aviso de Justificación de Incidencias en la puntualidad y asistencia</h1>
+  <h1>Aviso de JustificaciÃ³n de Incidencias en la puntualidad y asistencia</h1>
   <p><button class="button_agregar" ><a href="nuevaIncidencia.jsp?action=6" class="ancla">Nueva incidencia</a></button></p>
   <main class="main">
     
@@ -66,8 +67,8 @@
     		for (Incidencias i:list){
     	    	out.print("<tr>"
     	        +"<td>"+i.getFolio()+"</td>"+
-    	        "<td>"+i.getTipo_causa()+"</td>"+
-    	        "<td>"+i.getCausa()+"</td>"+
+    	        "<td class='tipoc'>"+i.getTipo_causa()+"</td>"+
+    	        "<td class='causa'>"+i.getCausa()+"</td>"+
     	        "<td>"+formatter.format(i.getFecha_justificacion())+"</td>"+
     	        "<td class='status'>"+i.getStatus()+"</td>"+
     	        		"<td class='status'>"+i.getObservaciones()+"</td>"+
@@ -81,8 +82,8 @@
     
     </table>
   </main>
-  <script type="text/javascript" src="js/stat.js"></script>
-  <script src="js/1.js"></script>
+  <script type="text/javascript" src="js/status.js"></script>
+  <script src="js/2.js"></script>
    <script src="js/app2.js"></script>
 </body>
 

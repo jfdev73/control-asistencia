@@ -10,7 +10,7 @@ let causas = ['Falta de puntualidad a la entrada','Falta de asistencia', 'Días 
 function mostrarOpciones(arreglo, opc){
   let elementos = '<option selected disabled>Seleccione</option>'
 for (let i = 0; i < arreglo.length; i++) {
-  elementos += '<option value="' + [i] +'">' + arreglo[i] +'</option>'
+  elementos += '<option value="' + arreglo[i] +'">' + arreglo[i] +'</option>'
   
 }
 opc.innerHTML = elementos
